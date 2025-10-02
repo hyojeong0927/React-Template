@@ -5,7 +5,7 @@ import Note from './Note';
 function CanvasCard({ title, isSubTitle = false, notes = [], onNotesChange }) {
   const handleAddNote = () => {
     const newNote = {
-      id: uuidv4,
+      id: uuidv4(),
       content: '',
       color: '',
     };
@@ -33,9 +33,9 @@ function CanvasCard({ title, isSubTitle = false, notes = [], onNotesChange }) {
         </button>
       </div>
       <div className="space-y-3 min-h-32 p-3">
-        {notes.map(note => (
+        {notes.map((note, index) => (
           <Note
-            key={note.id}
+            key={`${note.id}-${index}`}
             id={note.id}
             content={note.content}
             color={note.color}

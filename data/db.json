@@ -249,7 +249,43 @@
       "title": "66d5_새로운 린 캔버스",
       "lastModified": "2025-09-22 14:00:38",
       "category": "신규",
-      "id": 12
+      "id": 12,
+      "unfairAdvantage": {
+        "notes": []
+      },
+      "valueProposition": {
+        "notes": []
+      },
+      "problem": {
+        "notes": [
+          {
+            "id": "8f2e2124-95f8-4cc2-bf94-32ccad45a661",
+            "content": "dddd",
+            "color": "bg-green-300"
+          },
+          {
+            "id": "5cd7c511-f5b1-45e0-b0a1-31549ed8d005",
+            "content": "",
+            "color": ""
+          },
+          {
+            "id": "3cc8de50-5f2a-4427-bbe7-cdfe3a8738d0",
+            "content": "",
+            "color": ""
+          }
+        ]
+      },
+      "solution": {
+        "notes": [
+          {
+            "content": "dddddddfs",
+            "color": "bg-blue-300"
+          }
+        ]
+      },
+      "customerSegments": {
+        "notes": []
+      }
     }
   ]
 }

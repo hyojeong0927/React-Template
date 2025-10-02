@@ -33,7 +33,7 @@ const Note = ({
       textareaRef.current.style.height =
         textareaRef.current.scrollHeight + 'px';
     }
-  }, [content]);
+  }, [localContent]);
 
   const handleContentChange = () => {
     onUpdateNote(id, localContent, color);
@@ -41,7 +41,7 @@ const Note = ({
 
   const handleColorChange = newColor => {
     setColor(newColor);
-    onUpdateNote(id, content, newColor);
+    onUpdateNote(id, localContent, newColor);
   };
 
   return (
@@ -77,7 +77,10 @@ const Note = ({
       <textarea
         ref={textareaRef}
         value={localContent}
-        onChange={e => setLocalContent(e.target.value)}
+        onChange={e => {
+          setLocalContent(e.target.value);
+          onUpdateNote(id, e.target.value, color);
+        }}
         onBlur={handleContentChange}
         className={`w-full h-full bg-transparent resize-none border-none focus:outline-none text-gray-900 overflow-hidden`}
         aria-label="Edit Note"
@@ -87,9 +90,9 @@ const Note = ({
       />
       {isEditing && (
         <div className="flex space-x-2">
-          {colorOptions.map((option, index) => (
+          {colorOptions.map(option => (
             <button
-              key={index}
+              key={option}
               className={`w-6 h-6 rounded-full cursor-pointer outline outline-gray-50 ${option}`}
               onClick={() => handleColorChange(option)}
               aria-label={`Change color to ${option}`}
