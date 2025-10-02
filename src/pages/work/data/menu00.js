@@ -1,0 +1,20 @@
+export const menu00 = [
+  {
+    no: 1,
+    id: 'P001',
+    depth1: '홈',
+    depth2: '',
+    depth3: '',
+    type: '페이지',
+    folder: 'home',
+    fileName: 'index.html',
+    fileUrl: '',
+    status: '완료',
+    startDate: '2025-08-01',
+    endDate: '2025-08-03',
+    modifiedDate: '2025-08-08',
+    hasDesign: 'Y',
+    devStartDate: '2025-08-04',
+    history: '<strong>ver1</strong> 업데이트 완료',
+  },
+];

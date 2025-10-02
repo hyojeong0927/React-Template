@@ -16,7 +16,7 @@ import AgreeForm from './pages/common/AgreeForm';
 
 // 작업리스트 & 가이드
 import WorkIndex from './pages/work/WorkIndex';
-import WorkList from './pages/work/WorkList';
+import PublishStatus from './pages/work/PublishStatus';
 import Guide from './pages/work/Guide';
 
 // 홈
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         path: 'work',
         element: <WorkIndex />,
         children: [
-          { index: true, element: <WorkList /> },
+          { index: true, element: <PublishStatus /> },
           { path: 'guide', element: <Guide /> },
         ],
       },

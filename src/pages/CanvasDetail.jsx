@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import CanvasTitle from '../components/CanvasTitle';
-import LeanCanvas from '../components/LeanCanvas';
+import CanvasTitle from '../components/Canvas/CanvasTitle';
+import LeanCanvas from '../components/Canvas/LeanCanvas';
 import { useEffect, useState } from 'react';
 import { getCanvasById, updateCanvas, updateTitle } from '../api/canvas';
 
