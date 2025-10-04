@@ -35,6 +35,9 @@ import Contact from './pages/about/Contact';
 import CanvasDetail from './pages/CanvasDetail';
 import Etc from './pages/Etc';
 import ScrollButtonPage from './pages/ScrollPage';
+import Page1 from './pages/Page1';
+import Page2 from './pages/Page2';
+import Page3 from './pages/Page3';
 
 // error
 import ErrorPage from './pages/ErrorPage';
@@ -83,7 +86,12 @@ const router = createBrowserRouter([
       {
         path: 'etc',
         element: <Etc />,
-        children: [{ index: true, element: <ScrollButtonPage /> }],
+        children: [
+          { index: true, element: <ScrollButtonPage /> },
+          { path: 'page1', element: <Page1 /> },
+          { path: 'page2', element: <Page2 /> },
+          { path: 'page3', element: <Page3 /> },
+        ],
       },
     ],
   },

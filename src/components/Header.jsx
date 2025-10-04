@@ -58,7 +58,10 @@ function Header() {
       label: 'Etc',
       icon: <FaInfoCircle />,
       to: '/etc',
-      children: [{ id: 'scrollpage', label: 'Scroll Page', to: '/etc' }],
+      children: [
+        { id: 'scrollpage', label: 'Scroll Page', to: '/etc' },
+        { id: 'page1', label: 'Page Move', to: '/etc/page1' },
+      ],
     },
   ];
 
