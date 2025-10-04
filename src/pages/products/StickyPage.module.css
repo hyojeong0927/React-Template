@@ -1,0 +1,41 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabs-container {
+  position: sticky;
+  top: 56px; /* 헤더 높이 */
+  z-index: 20;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabs {
+  display: flex;
+}
+
+.tabs button {
+  outline: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  font-weight: bold;
+}
+
+.tabs button.active {
+  border-bottom: 2px solid #1d4ed8;
+  color: #1d4ed8;
+}
+
+.tabs button:hover {
+  color: #1d4ed8;
+}
+
+.tab-body {
+  padding: 20px;
+}

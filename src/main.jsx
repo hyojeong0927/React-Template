@@ -31,6 +31,11 @@ import AboutIndex from './pages/about/AboutIndex';
 import About from './pages/about/About';
 import Contact from './pages/about/Contact';
 
+// 커머스
+import ProductIndex from './pages/products/ProductIndex';
+import StickyPage from './pages/products/StickyPage';
+import ProductListPage from './pages/products/ProductListPage';
+
 // 기타
 import CanvasDetail from './pages/CanvasDetail';
 import Etc from './pages/Etc';
@@ -84,6 +89,14 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: 'product',
+        element: <ProductIndex />,
+        children: [
+          { index: true, element: <ProductListPage /> },
+          { path: 'stickypage', element: <StickyPage /> },
+        ],
+      },
+      {
         path: 'etc',
         element: <Etc />,
         children: [
@@ -91,6 +104,7 @@ const router = createBrowserRouter([
           { path: 'page1', element: <Page1 /> },
           { path: 'page2', element: <Page2 /> },
           { path: 'page3', element: <Page3 /> },
+          { path: 'stickypage', element: <StickyPage /> },
         ],
       },
     ],

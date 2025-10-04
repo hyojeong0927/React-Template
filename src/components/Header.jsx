@@ -54,6 +54,16 @@ function Header() {
       ],
     },
     {
+      id: 'product',
+      label: 'Product',
+      icon: <FaInfoCircle />,
+      to: '/product',
+      children: [
+        { id: 'product', label: 'List Page', to: '/product' },
+        { id: 'stickypage', label: 'Sticky Page', to: '/product/stickypage' },
+      ],
+    },
+    {
       id: 'etc',
       label: 'Etc',
       icon: <FaInfoCircle />,
@@ -61,6 +71,7 @@ function Header() {
       children: [
         { id: 'scrollpage', label: 'Scroll Page', to: '/etc' },
         { id: 'page1', label: 'Page Move', to: '/etc/page1' },
+        { id: 'stickypage', label: 'Sticky Page', to: '/etc/stickypage' },
       ],
     },
   ];
@@ -77,7 +88,7 @@ function Header() {
   }, [isMenuOpen]);
 
   return (
-    <header className="sticky top-0 bg-gray-800 text-white px-4 z-30">
+    <header className="sticky top-0 bg-gray-800 text-white px-4 z-50">
       <div className="container mx-auto flex justify-between items-center h-14">
         {/* 로고 */}
         <Link to="/" className="text-xl font-bold">
