@@ -72,37 +72,58 @@ export default function Selectbox({
         break;
     }
   };
+
   return (
     <div
       id={id}
-      className={`selectbox ${className} ${disabled ? 'disabled' : ''}`}
+      ref={ref}
+      className={`relative ${className} ${disabled ? 'opacity-50 pointer-events-none' : ''}`}
       aria-haspopup="listbox"
       aria-expanded={open}
       tabIndex={0}
       onKeyDown={handleKeyDown}
       {...(ariaLabel ? { 'aria-label': ariaLabel } : {})}
     >
-      {/* 선택 값*/}
+      {/* 선택 값 */}
       <div
-        className="selectbox-selected"
+        className="w-full border rounded-md px-3 py-2 flex justify-between items-center cursor-pointer bg-white"
         title={selectedOption || placeholder}
-        onClick={() => !disabled && setOpen(prev => !prev)}
-        disabled={disabled}
+        onClick={() => !disabled && setOpen(v => !v)}
         aria-controls={`${id}-listbox`}
         aria-haspopup="listbox"
       >
-        {selectedOption || <span className="placeholder">{placeholder}</span>}
+        <span className="truncate text-gray-700">
+          {selectedOption || (
+            <span className="text-gray-400">{placeholder}</span>
+          )}
+        </span>
         <span>
-          <i className="icon arrow-down"></i>
+          <svg
+            className={`w-4 h-4 transform transition-transform duration-200 ${
+              open ? 'rotate-180' : ''
+            }`}
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="M6 8l4 4 4-4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </span>
       </div>
+
       <input type="hidden" name={name} value={selected || ''} />
+
       {/* 옵션 목록 */}
       {open && (
         <ul
           id={`${idPrefix}`}
           role="listbox"
-          className="selectbox-option__list"
+          className="absolute z-10 w-full bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto shadow-lg"
         >
           {options.map((option, index) => (
             <li
@@ -116,9 +137,11 @@ export default function Selectbox({
                 setOpen(false);
                 setHighlightIndex(-1);
               }}
-              className={`selectbox-option 
-                ${selected === option.value ? 'selected' : ''}
-                ${highlightIndex === index ? 'highlight' : ''}`}
+              className={`px-3 py-2 cursor-pointer select-none truncate ${
+                selected === option.value
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'hover:bg-gray-100'
+              } ${highlightIndex === index ? 'bg-gray-200' : ''}`}
             >
               {option.label}
             </li>

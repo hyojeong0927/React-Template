@@ -9,7 +9,7 @@ import App from './App';
 // 공통 컴퍼넌트
 import CommonIndex from './pages/common/CommonIndex';
 import CheckboxDemo from './pages/common/CheckboxDemo';
-import SelectBox from './pages/common/SelectBox';
+import SelectBox from './pages/common/SelectboxContent';
 import List from './pages/common/List';
 import HeadTitle from './pages/common/HeadTitle';
 import AgreeForm from './pages/common/AgreeForm';
