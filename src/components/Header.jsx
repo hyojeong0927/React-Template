@@ -35,6 +35,7 @@ function Header() {
         { id: 'guide', label: 'Guide', to: '/work/guide' },
       ],
     },
+
     {
       id: 'common',
       label: 'Components',
@@ -44,10 +45,20 @@ function Header() {
         { id: 'agree', label: 'Agree Form', to: '/common' },
         { id: 'checkbox', label: 'Checkbox', to: '/common/checkbox' },
         { id: 'floatingbar', label: 'FloatingBar', to: '/common/floatingbar' },
+        { id: 'form', label: 'Form', to: '/common/form' },
         { id: 'list', label: 'List', to: '/common/list' },
+        { id: 'popup', label: 'Popup', to: '/common/popup' },
+        { id: 'search', label: 'Search Form', to: '/common/search' },
         { id: 'selectbox', label: 'Selectbox', to: '/common/selectbox' },
         { id: 'title', label: 'Head Title', to: '/common/title' },
       ],
+    },
+    {
+      id: 'etc',
+      label: 'Etc',
+      icon: <FaInfoCircle />,
+      to: '/etc',
+      children: [{ id: 'scrollpage', label: 'Scroll Page', to: '/etc' }],
     },
   ];
 

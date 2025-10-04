@@ -14,6 +14,9 @@ import List from './pages/common/List';
 import HeadTitle from './pages/common/HeadTitle';
 import AgreeForm from './pages/common/AgreeForm';
 import FloatingBar from './pages/common/FloatingBarContent';
+import SearchForm from './pages/common/SearchForm';
+import PopupContent from './pages/common/PopupContent';
+import FormContent from './pages/common/FormContent';
 
 // 작업리스트 & 가이드
 import WorkIndex from './pages/work/WorkIndex';
@@ -30,6 +33,8 @@ import Contact from './pages/about/Contact';
 
 // 기타
 import CanvasDetail from './pages/CanvasDetail';
+import Etc from './pages/Etc';
+import ScrollButtonPage from './pages/ScrollPage';
 
 // error
 import ErrorPage from './pages/ErrorPage';
@@ -51,6 +56,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'canvases/:id', element: <CanvasDetail /> },
+
       {
         path: 'work',
         element: <WorkIndex />,
@@ -69,7 +75,15 @@ const router = createBrowserRouter([
           { path: 'selectbox', element: <SelectBox /> },
           { path: 'title', element: <HeadTitle /> },
           { path: 'floatingbar', element: <FloatingBar /> },
+          { path: 'popup', element: <PopupContent /> },
+          { path: 'search', element: <SearchForm /> },
+          { path: 'form', element: <FormContent /> },
         ],
+      },
+      {
+        path: 'etc',
+        element: <Etc />,
+        children: [{ index: true, element: <ScrollButtonPage /> }],
       },
     ],
   },
