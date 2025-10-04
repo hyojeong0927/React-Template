@@ -43,6 +43,7 @@ function Header() {
       children: [
         { id: 'agree', label: 'Agree Form', to: '/common' },
         { id: 'checkbox', label: 'Checkbox', to: '/common/checkbox' },
+        { id: 'floatingbar', label: 'FloatingBar', to: '/common/floatingbar' },
         { id: 'list', label: 'List', to: '/common/list' },
         { id: 'selectbox', label: 'Selectbox', to: '/common/selectbox' },
         { id: 'title', label: 'Head Title', to: '/common/title' },

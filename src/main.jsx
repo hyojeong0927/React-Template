@@ -13,6 +13,7 @@ import SelectBox from './pages/common/SelectboxContent';
 import List from './pages/common/List';
 import HeadTitle from './pages/common/HeadTitle';
 import AgreeForm from './pages/common/AgreeForm';
+import FloatingBar from './pages/common/FloatingBarContent';
 
 // 작업리스트 & 가이드
 import WorkIndex from './pages/work/WorkIndex';
@@ -67,6 +68,7 @@ const router = createBrowserRouter([
           { path: 'list', element: <List /> },
           { path: 'selectbox', element: <SelectBox /> },
           { path: 'title', element: <HeadTitle /> },
+          { path: 'floatingbar', element: <FloatingBar /> },
         ],
       },
     ],
