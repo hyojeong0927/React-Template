@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Selectbox from '../../components/Select/Selectbox';
-import SelectboxCheckbox from '../../components/Select/SelectboxCheckbox';
-import SelectboxSearch from '../../components/Select/SelectboxSearch';
+import Selectbox from '../../components/select/Selectbox';
+import SelectboxCheckbox from '../../components/select/SelectboxCheckbox';
+import SelectboxSearch from '../../components/select/SelectboxSearch';
 
 export default function SelectBox() {
   const [singleSelected, setSingleSelected] = useState(null);

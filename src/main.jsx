@@ -6,18 +6,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './index.css';
 import App from './App';
 
-// 공통 컴퍼넌트
-import CommonIndex from './pages/common/CommonIndex';
-import CheckboxDemo from './pages/common/CheckboxDemo';
-import SelectBox from './pages/common/SelectboxContent';
-import List from './pages/common/List';
-import HeadTitle from './pages/common/HeadTitle';
-import AgreeForm from './pages/common/AgreeForm';
-import FloatingBar from './pages/common/FloatingBarContent';
-import SearchForm from './pages/common/SearchForm';
-import PopupContent from './pages/common/PopupContent';
-import FormContent from './pages/common/FormContent';
-
 // 작업리스트 & 가이드
 import WorkIndex from './pages/work/WorkIndex';
 import PublishStatus from './pages/work/PublishStatus';
@@ -47,6 +35,21 @@ import Page3 from './pages/Page3';
 // error
 import ErrorPage from './pages/ErrorPage';
 
+// 컴퍼넌트 예제
+import AgreeForm from './pages/example/AgreeFormExample';
+import Button from './pages/example/ButtonExample';
+import Checkbox from './pages/example/CheckboxExample';
+import CommonIndex from './pages/example/CommonIndex';
+import FloatingBar from './pages/example/FloatingBarExample';
+import Form from './pages/example/FormExample';
+import HeadTitle from './pages/example/HeadTitleExample';
+import Info from './pages/example/InfoExample';
+import List from './pages/example/ListExample';
+import Popup from './pages/example/PopupExample';
+import SelectBox from './pages/example/SelectboxExample';
+import SearchForm from './pages/example/SearchFormExample';
+import Tabs from './pages/example/TabsExample';
+
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -74,18 +77,21 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'common',
+        path: 'example',
         element: <CommonIndex />,
         children: [
           { index: true, element: <AgreeForm /> },
-          { path: 'checkbox', element: <CheckboxDemo /> },
+          { path: 'checkbox', element: <Checkbox /> },
           { path: 'list', element: <List /> },
           { path: 'selectbox', element: <SelectBox /> },
           { path: 'title', element: <HeadTitle /> },
           { path: 'floatingbar', element: <FloatingBar /> },
-          { path: 'popup', element: <PopupContent /> },
+          { path: 'popup', element: <Popup /> },
           { path: 'search', element: <SearchForm /> },
-          { path: 'form', element: <FormContent /> },
+          { path: 'form', element: <Form /> },
+          { path: 'button', element: <Button /> },
+          { path: 'info', element: <Info /> },
+          { path: 'tabs', element: <Tabs /> },
         ],
       },
       {

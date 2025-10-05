@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Agree from '../../components/Agree/Agree';
+import Agree from '../../components/agree/Agree';
 import PrivacyContent from './PrivacyContent';
 import MarketingContent from './MarketingContent';
 import ServiceContent from './ServiceContent';
@@ -56,21 +56,24 @@ export default function AgreeForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Agree
-        title="서비스 이용 동의서"
-        options={options}
-        value={agreements}
-        onChange={setAgreements}
-        contents={contents}
-        showSelectAll={true}
-        selectAllLabel="전체 동의"
-        subtitle="모든 약관에 동의해주세요."
-      >
-        <div>전체 안내 문구</div>
-      </Agree>
+    <>
+      <h1 className="text-xl font-bold mb-4 text-center">약관 예시</h1>
+      <form onSubmit={handleSubmit}>
+        <Agree
+          title="서비스 이용 동의서"
+          options={options}
+          value={agreements}
+          onChange={setAgreements}
+          contents={contents}
+          showSelectAll={true}
+          selectAllLabel="전체 동의"
+          subtitle="모든 약관에 동의해주세요."
+        >
+          <div>전체 안내 문구</div>
+        </Agree>
 
-      <button type="submit">제출</button>
-    </form>
+        <button type="submit">제출</button>
+      </form>
+    </>
   );
 }

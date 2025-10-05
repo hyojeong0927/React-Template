@@ -1,8 +1,9 @@
-import HeadTitle from '../../components/Title/HeadTitle';
+import HeadTitle from '../../components/title/HeadTitle';
 
 export default function TitlePage() {
   return (
     <>
+      <h1 className="text-xl font-bold mb-4 text-center">타이틀</h1>
       <HeadTitle
         level={1}
         title="메인 페이지"

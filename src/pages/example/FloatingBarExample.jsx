@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import FloatingBar from '../../components/FloatingBar/FloatingBar';
+import FloatingBar from '../../components/floatingBar/FloatingBar';
 
 export default function FloatingBarExample() {
   const [barPosition, setBarPosition] = useState(null);

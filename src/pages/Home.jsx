@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { createCanvas, deleteCanvas, getCanvases } from '../api/canvas';
 
-import CanvasList from '../components/Canvas/CanvasList';
-import SearchBar from '../components/Canvas/SearchBar';
-import CategoryFilter from '../components/Canvas/CategoryFilter';
-import ViewToggle from '../components/Canvas/ViewToggle';
+import CanvasList from '../components/canvas/CanvasList';
+import SearchBar from '../components/canvas/SearchBar';
+import CategoryFilter from '../components/canvas/CategoryFilter';
+import ViewToggle from '../components/canvas/ViewToggle';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import Button from '../components/Button';

@@ -48,7 +48,7 @@ export default function CheckboxGroup({
   };
 
   return (
-    <fieldset className={`checkbox-group ${className}`}>
+    <fieldset className={`checkbox-group${className ? ` ${className}` : ''}`}>
       <legend className="checkbox-group__legend">
         {groupLabel}
         {showSelectionCount && (

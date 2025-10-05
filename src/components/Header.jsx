@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from 'react';
 import Button from './Button';
 import Aside from './Aside';
+import { label } from 'framer-motion/client';
 
 function Header() {
   const location = useLocation();
@@ -37,20 +38,23 @@ function Header() {
     },
 
     {
-      id: 'common',
+      id: 'example',
       label: 'Components',
       icon: <FaInfoCircle />,
-      to: '/common',
+      to: '/example',
       children: [
-        { id: 'agree', label: 'Agree Form', to: '/common' },
-        { id: 'checkbox', label: 'Checkbox', to: '/common/checkbox' },
-        { id: 'floatingbar', label: 'FloatingBar', to: '/common/floatingbar' },
-        { id: 'form', label: 'Form', to: '/common/form' },
-        { id: 'list', label: 'List', to: '/common/list' },
-        { id: 'popup', label: 'Popup', to: '/common/popup' },
-        { id: 'search', label: 'Search Form', to: '/common/search' },
-        { id: 'selectbox', label: 'Selectbox', to: '/common/selectbox' },
-        { id: 'title', label: 'Head Title', to: '/common/title' },
+        { id: 'agree', label: 'Agree Form', to: '/example' },
+        { id: 'button', label: 'Button', to: '/example/button' },
+        { id: 'checkbox', label: 'Checkbox', to: '/example/checkbox' },
+        { id: 'floatingbar', label: 'FloatingBar', to: '/example/floatingbar' },
+        { id: 'form', label: 'Form', to: '/example/form' },
+        { id: 'info', label: 'Info', to: '/example/info' },
+        { id: 'list', label: 'List', to: '/example/list' },
+        { id: 'popup', label: 'Popup', to: '/example/popup' },
+        { id: 'search', label: 'Search Form', to: '/example/search' },
+        { id: 'selectbox', label: 'Selectbox', to: '/example/selectbox' },
+        { id: 'tabs', label: 'Tabs', to: '/example/tabs' },
+        { id: 'title', label: 'Title', to: '/example/title' },
       ],
     },
     {

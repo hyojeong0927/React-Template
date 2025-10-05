@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Checkbox, CheckboxGroup } from '../../components/Checkbox';
+import { Checkbox, CheckboxGroup } from '../../components/checkbox';
 
 function CheckboxDemo() {
   const [selected, setSelected] = useState([]);
@@ -25,6 +25,7 @@ function CheckboxDemo() {
 
   return (
     <>
+      <h1 className="text-xl font-bold mb-4 text-center">Checkbox</h1>
       <CheckboxGroup
         options={sampleOptions}
         value={selected1}

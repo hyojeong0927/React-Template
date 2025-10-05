@@ -1,6 +1,6 @@
-import { Ulist, Dlist, Olist } from '../../components/List/List';
+import { Ulist, Dlist, Olist } from '../../components/etc/List';
 
-function List() {
+export default function List() {
   const people = [
     'Creola Katherine Johnson: mathematician',
     'Mario José Molina-Pasquel Henríquez: chemist',
@@ -17,14 +17,15 @@ function List() {
   ];
   return (
     <>
+      <h1 className="text-xl font-bold mb-4 text-center">List 예시</h1>
       <h2>ulist</h2>
       <Ulist items={people} />
+      <br />
       <h2>olist</h2>
       <Olist items={people} />
+      <br />
       <h2>dlist</h2>
       <Dlist items={peopleDlist} />
     </>
   );
 }
-
-export default List;

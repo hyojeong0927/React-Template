@@ -22,7 +22,7 @@ export default function Checkbox({
     typeof checked === 'boolean' ? checked : value.includes(option.value);
 
   return (
-    <div className={`checkbox ${className}`}>
+    <div className={`checkbox${className ? ` ${className}` : ''}`}>
       <label htmlFor={id}>
         <input
           type="checkbox"

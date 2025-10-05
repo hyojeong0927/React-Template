@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Popup from '../../components/Popup/Popup';
+import Popup from '../../components/popup/Popup';
 
 export default function PopupContent() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -9,6 +9,7 @@ export default function PopupContent() {
 
   return (
     <div className="p-8">
+      <h1 className="text-xl font-bold mb-4 text-center">Popup 예제</h1>
       <button
         onClick={openPopup}
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"

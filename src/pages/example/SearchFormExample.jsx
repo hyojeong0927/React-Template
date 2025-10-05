@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SearchForm from '../../components/SearchBox/Search';
+import SearchForm from '../../components/searchbox/Search';
 
 export default function Search() {
   const [name, setName] = useState('');
