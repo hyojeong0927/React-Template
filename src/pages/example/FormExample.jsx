@@ -2,28 +2,33 @@ import { useState } from 'react';
 import Form from '../../components/form/Form';
 
 export default function FormContent() {
+  const [values, setValues] = useState({
+    userName: '',
+    userEmail: '',
+  });
+
   const [errors, setErrors] = useState({});
 
   const validate = values => {
     const newErrors = {};
-
     if (!values.userName.trim()) {
       newErrors.userName = '이름을 입력해주세요.';
     }
-
     if (!values.userEmail.trim()) {
       newErrors.userEmail = '이메일을 입력해주세요.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.userEmail)) {
       newErrors.userEmail = '올바른 이메일 형식을 입력해주세요.';
     }
-
     return newErrors;
+  };
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setValues(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const values = Object.fromEntries(formData.entries());
     const newErrors = validate(values);
 
     if (Object.keys(newErrors).length > 0) {
@@ -36,11 +41,15 @@ export default function FormContent() {
   };
 
   const handleCancel = () => {
-    alert('취소!');
+    setValues({ userName: '', userEmail: '' });
+    setErrors({});
   };
 
+  const ErrorMessage = ({ message }) =>
+    message ? <p className="text-red-500 text-sm mt-1">{message}</p> : null;
+
   return (
-    <>
+    <div className="max-w-md mx-auto p-4">
       <h1 className="text-xl font-bold mb-4 text-center">폼 예시</h1>
       <Form
         bottomBtn
@@ -73,14 +82,15 @@ export default function FormContent() {
             name="userName"
             type="text"
             placeholder="이름 입력"
-            required
+            value={values.userName}
+            onChange={handleChange}
+            aria-invalid={errors.userName ? 'true' : 'false'}
+            aria-describedby="userName-error"
             className={`border rounded-md p-2 w-full ${
               errors.userName ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.userName && (
-            <p className="text-red-500 text-sm mt-1">{errors.userName}</p>
-          )}
+          <ErrorMessage message={errors.userName} />
         </div>
 
         {/* 이메일 입력 */}
@@ -93,16 +103,17 @@ export default function FormContent() {
             name="userEmail"
             type="email"
             placeholder="이메일 입력"
-            required
+            value={values.userEmail}
+            onChange={handleChange}
+            aria-invalid={errors.userEmail ? 'true' : 'false'}
+            aria-describedby="userEmail-error"
             className={`border rounded-md p-2 w-full ${
               errors.userEmail ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.userEmail && (
-            <p className="text-red-500 text-sm mt-1">{errors.userEmail}</p>
-          )}
+          <ErrorMessage message={errors.userEmail} />
         </div>
       </Form>
-    </>
+    </div>
   );
 }

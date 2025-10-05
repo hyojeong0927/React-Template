@@ -6,6 +6,7 @@ export default function FloatingBar({
   children,
   position = 'bottom',
   onClose,
+  className = '',
 }) {
   const baseClasses =
     'fixed bg-gray-800 text-white shadow-lg z-50 flex flex-col p-4 rounded-md transition-transform transition-opacity duration-300 ease-in-out';
@@ -14,6 +15,18 @@ export default function FloatingBar({
     top: 'top-0 left-0 w-full justify-center',
     bottom: 'bottom-0 left-0 w-full justify-center',
     side: 'top-1/2 right-0 transform -translate-y-1/2 h-auto justify-center',
+  };
+
+  const animationClasses = {
+    top: 'translate-y-0 opacity-100',
+    bottom: 'translate-y-0 opacity-100',
+    side: 'translate-x-0 opacity-100',
+  };
+
+  const hideClasses = {
+    top: '-translate-y-full opacity-0',
+    bottom: 'translate-y-full opacity-0',
+    side: 'translate-x-full opacity-0',
   };
 
   const [visible, setVisible] = useState(true);
@@ -33,34 +46,33 @@ export default function FloatingBar({
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  const animationClasses = {
-    top: visible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0',
-    bottom: visible
-      ? 'translate-y-0 opacity-100'
-      : 'translate-y-full opacity-0',
-    side: visible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0',
-  };
-
   return (
     <div
       className={`${baseClasses} ${
         positionClasses[position] || positionClasses.bottom
-      } ${animationClasses[position]}`}
+      } ${visible ? animationClasses[position] : hideClasses[position]} ${
+        className
+      }`}
       style={{
         transitionProperty: 'transform, opacity',
         transitionDuration: '300ms',
         transitionTimingFunction: 'ease-in-out',
       }}
+      role="region"
+      aria-label={title || 'Floating Bar'}
     >
       {/* 헤더 */}
       <div className="floatingbar-header flex justify-between items-center mb-2">
         <span className="title text-lg font-bold">{title}</span>
-        <button
-          onClick={onClose}
-          className="bg-gray-700 px-2 py-1 rounded hover:bg-gray-600"
-        >
-          창닫기
-        </button>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="bg-gray-700 px-2 py-1 rounded hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
+            aria-label="창 닫기"
+          >
+            ✕
+          </button>
+        )}
       </div>
 
       {/* 콘텐츠 */}
@@ -72,7 +84,7 @@ export default function FloatingBar({
 
       {/* 푸터 */}
       {bottomBtn && (
-        <div className="floatingbar-footer flex justify-end">
+        <div className="floatingbar-footer flex justify-end mt-2">
           <div className="button-area space-x-2">{bottomBtn}</div>
         </div>
       )}

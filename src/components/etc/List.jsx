@@ -1,11 +1,8 @@
 export function Ulist({ items = [], className = '' }) {
   return (
-    <ul className={`ulist${className ? ` ${className}` : ''}`}>
+    <ul className={`ulist list-disc pl-6 ${className}`}>
       {items.map((value, index) => (
-        <li
-          key={index}
-          className={`ulist-item${className ? ` ${className}` : ''}`}
-        >
+        <li key={index} className={`ulist-item mb-1 ${className}`}>
           {value}
         </li>
       ))}
@@ -15,12 +12,9 @@ export function Ulist({ items = [], className = '' }) {
 
 export function Olist({ items = [], className = '' }) {
   return (
-    <ol className={`olist${className ? ` ${className}` : ''}`}>
+    <ol className={`olist list-decimal pl-6 ${className}`}>
       {items.map((value, index) => (
-        <li
-          key={index}
-          className={`olist-item${className ? ` ${className}` : ''}`}
-        >
+        <li key={index} className={`olist-item mb-1 ${className}`}>
           {value}
         </li>
       ))}
@@ -30,18 +24,11 @@ export function Olist({ items = [], className = '' }) {
 
 export function Dlist({ items = [], className = '' }) {
   return (
-    <dl className={`dlist${className ? ` ${className}` : ''}`}>
+    <dl className={`dlist space-y-2 ${className}`}>
       {items.map((item, index) => (
-        <div
-          key={index}
-          className={`dlist-pair${className ? ` ${className}` : ''}`}
-        >
-          <dt className={`dlist-dt${className ? ` ${className}` : ''}`}>
-            {item.term}
-          </dt>
-          <dd className={`dlist-dd${className ? ` ${className}` : ''}`}>
-            {item.description}
-          </dd>
+        <div key={index} className={`dlist-pair ${className}`}>
+          <dt className={`dlist-dt font-semibold ${className}`}>{item.term}</dt>
+          <dd className={`dlist-dd ml-4 ${className}`}>{item.description}</dd>
         </div>
       ))}
     </dl>

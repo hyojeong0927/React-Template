@@ -1,29 +1,54 @@
-function HeadTitle({
-  level = 2, // h 태그 레벨 (기본 h2)
-  title, // 메인 제목
-  subTitle, // 보조 제목
-  descript, // 설명 텍스트
-  children, // 버튼 등 액션 영역
-  align = 'left', // 정렬 옵션: left, center, right
+export default function HeadTitle({
+  level = 2,
+  title,
+  subTitle,
+  descript,
+  children,
+  align = 'left',
   className = '',
 }) {
+  const alignClass =
+    {
+      left: 'text-left',
+      center: 'text-center',
+      right: 'text-right',
+    }[align] || 'text-left';
+
   const Heading = `h${level}`;
 
-  return (
-    <div className={`title-wrap text-${align} ${className}`}>
-      {title && <Heading className="text-xl font-bold">{title}</Heading>}
+  // 접근성을 위한 id 생성
+  const titleId = `headtitle-${Math.random().toString(36).substr(2, 9)}`;
+  const descId = descript ? `${titleId}-desc` : undefined;
 
-      {children && <div className="btn-area mt-2">{children}</div>}
+  return (
+    <section
+      className={`title-wrap ${alignClass} ${className}`}
+      aria-labelledby={titleId}
+      aria-describedby={descId}
+    >
+      {title && (
+        <Heading id={titleId} className="text-xl font-bold">
+          {title}
+        </Heading>
+      )}
+
+      {children && (
+        <div className="btn-area mt-2" role="region" aria-label="Actions">
+          {children}
+        </div>
+      )}
 
       {subTitle && (
-        <div className="title-sub text-gray-500 text-sm mt-1">{subTitle}</div>
+        <div className="title-sub text-gray-500 text-sm mt-1" role="note">
+          {subTitle}
+        </div>
       )}
 
       {descript && (
-        <div className="title-dec text-gray-400 text-xs mt-1">{descript}</div>
+        <p id={descId} className="title-dec text-gray-400 text-xs mt-1">
+          {descript}
+        </p>
       )}
-    </div>
+    </section>
   );
 }
-
-export default HeadTitle;

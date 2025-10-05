@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function Button({
   type = 'button',
   variant = 'primary',
@@ -9,6 +7,7 @@ export default function Button({
   fullWidth = false,
   iconLeft = null,
   iconRight = null,
+  loadingText = '로딩중...',
   onClick,
   children,
   className = '',
@@ -31,19 +30,32 @@ export default function Button({
     lg: 'px-5 py-3 text-lg',
   };
 
+  const classes = [
+    baseStyle,
+    variantStyle[variant],
+    sizeStyle[size],
+    disabled || loading ? 'opacity-50 cursor-not-allowed' : '',
+    fullWidth ? 'w-full' : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <button
       type={type}
       disabled={disabled || loading}
+      aria-disabled={disabled || loading}
+      aria-busy={loading}
       onClick={onClick}
-      className={`${baseStyle} ${variantStyle[variant]} ${sizeStyle[size]} ${
-        disabled || loading ? 'opacity-50 cursor-not-allowed' : ''
-      } ${fullWidth ? 'w-full' : ''} ${className}`}
+      className={classes}
     >
       {loading ? (
         <span className="flex items-center gap-2">
-          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-          로딩중...
+          <span
+            className={`w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin`}
+          />
+          {loadingText}
         </span>
       ) : (
         <>
