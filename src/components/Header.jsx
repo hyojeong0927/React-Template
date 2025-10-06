@@ -9,7 +9,6 @@ import {
 import { useEffect, useState } from 'react';
 import Button from './Button';
 import Aside from './Aside';
-import { label } from 'framer-motion/client';
 
 function Header() {
   const location = useLocation();
@@ -45,6 +44,7 @@ function Header() {
       children: [
         { id: 'agree', label: 'Agree Form', to: '/example' },
         { id: 'button', label: 'Button', to: '/example/button' },
+        { id: 'chart', label: 'Chart', to: '/example/chart' },
         { id: 'checkbox', label: 'Checkbox', to: '/example/checkbox' },
         { id: 'floatingbar', label: 'FloatingBar', to: '/example/floatingbar' },
         { id: 'form', label: 'Form', to: '/example/form' },

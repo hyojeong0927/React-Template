@@ -38,6 +38,7 @@ import ErrorPage from './pages/ErrorPage';
 // 컴퍼넌트 예제
 import AgreeForm from './pages/example/AgreeFormExample';
 import Button from './pages/example/ButtonExample';
+import Chart from './pages/example/ChartExample';
 import Checkbox from './pages/example/CheckboxExample';
 import CommonIndex from './pages/example/CommonIndex';
 import FloatingBar from './pages/example/FloatingBarExample';
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
         element: <CommonIndex />,
         children: [
           { index: true, element: <AgreeForm /> },
+          { path: 'chart', element: <Chart /> },
           { path: 'checkbox', element: <Checkbox /> },
           { path: 'list', element: <List /> },
           { path: 'selectbox', element: <SelectBox /> },
