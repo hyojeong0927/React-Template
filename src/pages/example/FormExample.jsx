@@ -1,19 +1,15 @@
 import { useState } from 'react';
 import Form from '../../components/form/Form';
+import { Input, PhoneInput } from '../../components/input';
 
 export default function FormContent() {
-  const [values, setValues] = useState({
-    userName: '',
-    userEmail: '',
-  });
-
+  const [values, setValues] = useState({ userName: '', userEmail: '' });
   const [errors, setErrors] = useState({});
+  const [phone, setPhone] = useState('');
 
   const validate = values => {
     const newErrors = {};
-    if (!values.userName.trim()) {
-      newErrors.userName = '이름을 입력해주세요.';
-    }
+    if (!values.userName.trim()) newErrors.userName = '이름을 입력해주세요.';
     if (!values.userEmail.trim()) {
       newErrors.userEmail = '이메일을 입력해주세요.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.userEmail)) {
@@ -30,12 +26,10 @@ export default function FormContent() {
   const handleSubmit = e => {
     e.preventDefault();
     const newErrors = validate(values);
-
-    if (Object.keys(newErrors).length > 0) {
+    if (Object.keys(newErrors).length) {
       setErrors(newErrors);
       return;
     }
-
     setErrors({});
     alert('폼 제출 성공!');
   };
@@ -45,12 +39,10 @@ export default function FormContent() {
     setErrors({});
   };
 
-  const ErrorMessage = ({ message }) =>
-    message ? <p className="text-red-500 text-sm mt-1">{message}</p> : null;
-
   return (
     <div className="max-w-md mx-auto p-4">
       <h1 className="text-xl font-bold mb-4 text-center">폼 예시</h1>
+
       <Form
         bottomBtn
         onSubmit={handleSubmit}
@@ -72,47 +64,35 @@ export default function FormContent() {
           </div>
         }
       >
-        {/* 이름 입력 */}
-        <div className="form-row mb-4">
-          <label htmlFor="userName" className="block mb-1 font-medium">
-            이름 <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="userName"
-            name="userName"
-            type="text"
-            placeholder="이름 입력"
-            value={values.userName}
-            onChange={handleChange}
-            aria-invalid={errors.userName ? 'true' : 'false'}
-            aria-describedby="userName-error"
-            className={`border rounded-md p-2 w-full ${
-              errors.userName ? 'border-red-500' : 'border-gray-300'
-            }`}
-          />
-          <ErrorMessage message={errors.userName} />
-        </div>
+        <Input
+          name="userName"
+          label="이름"
+          value={values.userName}
+          onChange={handleChange}
+          placeholder="이름 입력"
+          required
+          error={errors.userName}
+        />
 
-        {/* 이메일 입력 */}
-        <div className="form-row mb-4">
-          <label htmlFor="userEmail" className="block mb-1 font-medium">
-            이메일 <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="userEmail"
-            name="userEmail"
-            type="email"
-            placeholder="이메일 입력"
-            value={values.userEmail}
-            onChange={handleChange}
-            aria-invalid={errors.userEmail ? 'true' : 'false'}
-            aria-describedby="userEmail-error"
-            className={`border rounded-md p-2 w-full ${
-              errors.userEmail ? 'border-red-500' : 'border-gray-300'
-            }`}
-          />
-          <ErrorMessage message={errors.userEmail} />
-        </div>
+        <Input
+          name="userEmail"
+          label="이메일"
+          type="email"
+          value={values.userEmail}
+          onChange={handleChange}
+          placeholder="이메일 입력"
+          required
+          error={errors.userEmail}
+        />
+        <PhoneInput
+          label="전화번호"
+          value={phone}
+          onChange={setPhone}
+          required
+          error={
+            phone && phone.length < 12 ? '전화번호를 정확히 입력해주세요.' : ''
+          }
+        />
       </Form>
     </div>
   );

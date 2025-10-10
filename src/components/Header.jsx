@@ -45,7 +45,7 @@ function Header() {
         { id: 'agree', label: 'Agree Form', to: '/example' },
         { id: 'button', label: 'Button', to: '/example/button' },
         { id: 'chart', label: 'Chart', to: '/example/chart' },
-        { id: 'checkbox', label: 'Checkbox', to: '/example/checkbox' },
+        { id: 'checkbox', label: 'Checkbox&Radio', to: '/example/checkbox' },
         { id: 'floatingbar', label: 'FloatingBar', to: '/example/floatingbar' },
         { id: 'form', label: 'Form', to: '/example/form' },
         { id: 'info', label: 'Info', to: '/example/info' },
