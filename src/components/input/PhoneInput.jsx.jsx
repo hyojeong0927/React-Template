@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Input from './Input';
+import Selectbox from '../select/Selectbox';
 
 export default function PhoneInput({
   id,
@@ -17,82 +19,89 @@ export default function PhoneInput({
   const [last, setLast] = useState(parts[2] || '');
   const inputId = id || `phone-${Math.random().toString(36).substring(2, 9)}`;
 
-  const handleChange = (part, val) => {
-    const num = val.replace(/\D/g, '');
-    if (part === 'middle') setMiddle(num);
-    if (part === 'last') setLast(num);
-
-    const fullValue = [
-      first,
-      part === 'middle' ? num : middle,
-      part === 'last' ? num : last,
-    ]
-      .filter(Boolean)
-      .join('-');
-
-    if (onChange) onChange(fullValue);
+  // 값 업데이트
+  const updateValue = (newFirst, newMiddle, newLast) => {
+    const full = [newFirst, newMiddle, newLast].filter(Boolean).join('-');
+    if (onChange) onChange(full);
   };
 
-  const handleFirstChange = e => {
-    const newFirst = e.target.value;
-    setFirst(newFirst);
-    const fullValue = [newFirst, middle, last].filter(Boolean).join('-');
-    if (onChange) onChange(fullValue);
+  // 각 입력 핸들러
+  const handleFirstChange = val => {
+    setFirst(val);
+    updateValue(val, middle, last);
   };
+
+  const handleMiddleChange = e => {
+    const val = e.target.value.replace(/\D/g, '');
+    setMiddle(val);
+    updateValue(first, val, last);
+  };
+
+  const handleLastChange = e => {
+    const val = e.target.value.replace(/\D/g, '');
+    setLast(val);
+    updateValue(first, middle, val);
+  };
+
+  // 선택 옵션
+  const phoneOptions = [
+    { label: '010', value: '010' },
+    { label: '011', value: '011' },
+    { label: '016', value: '016' },
+    { label: '017', value: '017' },
+    { label: '018', value: '018' },
+    { label: '019', value: '019' },
+  ];
 
   return (
     <div className={`input-wrapper ${className}`}>
       {label && (
-        <label htmlFor={inputId} className="input-label">
-          {label} {required && <span className="required">*</span>}
+        <label htmlFor={inputId} className="input-label block mb-1">
+          {label} {required && <span className="required text-red-500">*</span>}
         </label>
       )}
 
       <div className="flex items-center gap-2">
-        <select
-          value={first}
+        {/* ✅ 커스텀 Selectbox 적용 */}
+        <Selectbox
+          id={`${inputId}-first`}
+          name="phoneFirst"
+          options={phoneOptions}
+          selected={first}
           onChange={handleFirstChange}
+          placeholder="선택"
           disabled={disabled}
-          className="w-24 border border-gray-300 rounded-md p-2"
-        >
-          <option value="010">010</option>
-          <option value="011">011</option>
-          <option value="016">016</option>
-          <option value="017">017</option>
-          <option value="018">018</option>
-          <option value="019">019</option>
-        </select>
+          className="w-24"
+          ariaLabel="전화번호 앞자리 선택"
+        />
 
         <span>-</span>
 
-        <input
+        <Input
           type="text"
           value={middle}
-          onChange={e => handleChange('middle', e.target.value)}
+          onChange={handleMiddleChange}
           placeholder="0000"
-          maxLength="4"
-          className="w-20 border border-gray-300 rounded-md p-2 text-center"
+          maxLength={4}
+          className="w-20 text-center"
           disabled={disabled}
         />
 
         <span>-</span>
 
-        <input
+        <Input
           type="text"
           value={last}
-          onChange={e => handleChange('last', e.target.value)}
+          onChange={handleLastChange}
           placeholder="0000"
-          maxLength="4"
-          className="w-20 border border-gray-300 rounded-md p-2 text-center"
+          maxLength={4}
+          className="w-20 text-center"
           disabled={disabled}
         />
       </div>
 
       {error && (
-        <p
-          id={`${inputId}-error`}
-          className="input-error text-red-500 text-sm mt-1"
-        >
+        <p id={`${inputId}-error`} className="text-red-500 text-sm mt-1">
           {error}
         </p>
       )}

@@ -1,12 +1,20 @@
 import { useState } from 'react';
 import Form from '../../components/form/Form';
-import { Input, PhoneInput } from '../../components/input';
+import {
+  Input,
+  PhoneInput,
+  Datepicker,
+  DateRangePicker,
+} from '../../components/input';
 
 export default function FormContent() {
   const [values, setValues] = useState({ userName: '', userEmail: '' });
   const [errors, setErrors] = useState({});
   const [phone, setPhone] = useState('');
+  const [date, setDate] = useState('');
+  const [range, setRange] = useState({ startDate: '', endDate: '' });
 
+  // ✅ 유효성 검사
   const validate = values => {
     const newErrors = {};
     if (!values.userName.trim()) newErrors.userName = '이름을 입력해주세요.';
@@ -36,54 +44,64 @@ export default function FormContent() {
 
   const handleCancel = () => {
     setValues({ userName: '', userEmail: '' });
+    setPhone('');
+    setDate('');
+    setRange({ startDate: '', endDate: '' });
     setErrors({});
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <h1 className="text-xl font-bold mb-4 text-center">폼 예시</h1>
+    <div className="max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 mt-8">
+      <h1 className="text-2xl font-semibold mb-6 text-center text-gray-800">
+        회원 정보 입력
+      </h1>
 
       <Form
-        bottomBtn
         onSubmit={handleSubmit}
+        bottomBtn
         button={
-          <div className="flex justify-end gap-2">
+          <div className="flex justify-end gap-3 mt-6">
             <button
               type="button"
               onClick={handleCancel}
-              className="px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500"
+              className="px-4 py-2 rounded-md bg-gray-400 hover:bg-gray-500 text-white font-medium transition"
             >
               취소
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium transition"
             >
               저장
             </button>
           </div>
         }
       >
+        {/* 이름 */}
         <Input
           name="userName"
           label="이름"
           value={values.userName}
           onChange={handleChange}
-          placeholder="이름 입력"
+          placeholder="이름을 입력하세요"
           required
           error={errors.userName}
         />
 
+        {/* 이메일 */}
         <Input
-          name="userEmail"
           label="이메일"
-          type="email"
+          name="userEmail"
           value={values.userEmail}
           onChange={handleChange}
           placeholder="이메일 입력"
           required
+          buttonLabel="인증번호 전송"
+          onButtonClick={() => alert('인증번호를 전송했습니다.')}
           error={errors.userEmail}
         />
+
+        {/* 전화번호 */}
         <PhoneInput
           label="전화번호"
           value={phone}
@@ -92,6 +110,24 @@ export default function FormContent() {
           error={
             phone && phone.length < 12 ? '전화번호를 정확히 입력해주세요.' : ''
           }
+        />
+
+        {/* 단일 날짜 */}
+        <Datepicker
+          label="생년월일"
+          id="date"
+          value={date}
+          onChange={setDate}
+          required
+        />
+
+        {/* 기간 선택 */}
+        <DateRangePicker
+          label="프로젝트 기간"
+          startDate={range.startDate}
+          endDate={range.endDate}
+          onChange={setRange}
+          required
         />
       </Form>
     </div>
