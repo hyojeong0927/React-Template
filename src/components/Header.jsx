@@ -56,6 +56,11 @@ function Header() {
         { id: 'form', label: 'Form', to: '/example/form' },
         { id: 'info', label: 'Info', to: '/example/info' },
         { id: 'list', label: 'List', to: '/example/list' },
+        {
+          id: 'popupbottomsheet',
+          label: 'Popup Bottom Sheet',
+          to: '/example/popupbottomsheet',
+        },
         { id: 'popup', label: 'Popup', to: '/example/popup' },
         { id: 'search', label: 'Search Form', to: '/example/search' },
         { id: 'selectbox', label: 'Selectbox', to: '/example/selectbox' },
