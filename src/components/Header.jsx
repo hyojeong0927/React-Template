@@ -54,6 +54,7 @@ function Header() {
         { id: 'search', label: 'Search Form', to: '/example/search' },
         { id: 'selectbox', label: 'Selectbox', to: '/example/selectbox' },
         { id: 'tabs', label: 'Tabs', to: '/example/tabs' },
+        { id: 'table', label: 'Table', to: '/example/table' },
         { id: 'title', label: 'Title', to: '/example/title' },
       ],
     },

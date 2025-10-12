@@ -50,6 +50,7 @@ import Popup from './pages/example/PopupExample';
 import SelectBox from './pages/example/SelectboxExample';
 import SearchForm from './pages/example/SearchFormExample';
 import Tabs from './pages/example/TabsExample';
+import Table from './pages/example/TableExample';
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -94,6 +95,7 @@ const router = createBrowserRouter([
           { path: 'button', element: <Button /> },
           { path: 'info', element: <Info /> },
           { path: 'tabs', element: <Tabs /> },
+          { path: 'table', element: <Table /> },
         ],
       },
       {
