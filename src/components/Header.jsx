@@ -43,9 +43,15 @@ function Header() {
       to: '/example',
       children: [
         { id: 'agree', label: 'Agree Form', to: '/example' },
+        {
+          id: 'bottomsheet',
+          label: 'Bottom Sheet',
+          to: '/example/bottomsheet',
+        },
         { id: 'button', label: 'Button', to: '/example/button' },
         { id: 'chart', label: 'Chart', to: '/example/chart' },
         { id: 'checkbox', label: 'Checkbox&Radio', to: '/example/checkbox' },
+        { id: 'faq', label: 'FAQ', to: '/example/faq' },
         { id: 'floatingbar', label: 'FloatingBar', to: '/example/floatingbar' },
         { id: 'form', label: 'Form', to: '/example/form' },
         { id: 'info', label: 'Info', to: '/example/info' },

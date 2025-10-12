@@ -37,10 +37,12 @@ import ErrorPage from './pages/ErrorPage';
 
 // 컴퍼넌트 예제
 import AgreeForm from './pages/example/AgreeFormExample';
+import BottomSheet from './pages/example/BottomSheetExample';
 import Button from './pages/example/ButtonExample';
 import Chart from './pages/example/ChartExample';
 import Checkbox from './pages/example/CheckboxExample';
 import CommonIndex from './pages/example/CommonIndex';
+import FAQ from './pages/example/FaqExample';
 import FloatingBar from './pages/example/FloatingBarExample';
 import Form from './pages/example/FormExample';
 import HeadTitle from './pages/example/HeadTitleExample';
@@ -83,8 +85,10 @@ const router = createBrowserRouter([
         element: <CommonIndex />,
         children: [
           { index: true, element: <AgreeForm /> },
+          { path: 'bottomsheet', element: <BottomSheet /> },
           { path: 'chart', element: <Chart /> },
           { path: 'checkbox', element: <Checkbox /> },
+          { path: 'faq', element: <FAQ /> },
           { path: 'list', element: <List /> },
           { path: 'selectbox', element: <SelectBox /> },
           { path: 'title', element: <HeadTitle /> },
