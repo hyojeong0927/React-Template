@@ -29,6 +29,7 @@ export default function PublishStatus() {
     setSelectedFilters(prev => ({ ...prev, [label]: value }));
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const matchesFilter = (row, filter) => {
     const selected = selectedFilters[filter.label];
     if (selected === '전체') return true;
@@ -46,7 +47,7 @@ export default function PublishStatus() {
 
   const filteredData = useMemo(() => {
     return mergedData.filter(row => filters.every(f => matchesFilter(row, f)));
-  }, [selectedFilters, mergedData]);
+  }, [mergedData, matchesFilter]);
 
   const sortValues = (a, b, key) => {
     const aVal = a[key];
@@ -219,7 +220,7 @@ export default function PublishStatus() {
                                 <li
                                   key={idx}
                                   dangerouslySetInnerHTML={{ __html: item }}
-                                ></li>
+                                />
                               ))}
                             </ul>
                           </details>

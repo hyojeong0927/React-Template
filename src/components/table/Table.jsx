@@ -6,10 +6,11 @@ export default function Table({
   data,
   rowspanKeys = [],
   colspanGroups = [],
+  className = '', // 전체 td 기본 class
 }) {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
-  /** 🔹 정렬 핸들러 */
+  /** 정렬 핸들러 */
   const handleSort = key => {
     setSortConfig(prev => {
       if (prev.key === key) {
@@ -20,22 +21,21 @@ export default function Table({
     });
   };
 
-  /** 🔹 정렬 데이터 */
+  /** 정렬 적용 */
   const sortedData = useMemo(() => {
     if (!sortConfig.key) return data;
-    const sorted = [...data].sort((a, b) => {
+    return [...data].sort((a, b) => {
       if (a[sortConfig.key] < b[sortConfig.key])
         return sortConfig.direction === 'asc' ? -1 : 1;
       if (a[sortConfig.key] > b[sortConfig.key])
         return sortConfig.direction === 'asc' ? 1 : -1;
       return 0;
     });
-    return sorted;
   }, [data, sortConfig]);
 
-  /** 🔹 header flatten */
+  /** header flatten & header rows */
   const flatColumns = [];
-  const headerRows = [[], []]; // 2행 고정 (rowspan 적용 위해)
+  const headerRows = [[], []];
   columns.forEach(col => {
     if (col.group && col.children?.length) {
       headerRows[0].push({ label: col.group, colspan: col.children.length });
@@ -46,14 +46,12 @@ export default function Table({
     } else {
       const rowspan = col.rowspan || 2;
       headerRows[0].push({ ...col, rowspan });
-      if (rowspan === 2) {
-        headerRows[1].push(null); // 빈셀로 채움
-      }
+      if (rowspan === 2) headerRows[1].push(null);
       flatColumns.push(col);
     }
   });
 
-  /** 🔹 rowspan/colspan 데이터 처리 */
+  /** rowspan/colspan 계산 */
   const mergedRows = useMemo(() => {
     const merged = sortedData.map(row => ({
       ...row,
@@ -66,7 +64,6 @@ export default function Table({
       let lastValue = null;
       let startIndex = 0;
       let count = 0;
-
       sortedData.forEach((row, i) => {
         if (row[key] === lastValue) {
           count++;
@@ -99,7 +96,7 @@ export default function Table({
     return merged;
   }, [sortedData, rowspanKeys, colspanGroups]);
 
-  /** 🔹 정렬 아이콘 */
+  /** 정렬 아이콘 */
   const getSortIcon = key => {
     if (sortConfig.key !== key) return <FaSort className="text-gray-400" />;
     if (sortConfig.direction === 'asc')
@@ -110,9 +107,8 @@ export default function Table({
 
   return (
     <div className="overflow-x-auto border rounded-lg">
-      <table className="min-w-full text-sm text-left">
+      <table className="min-w-full table-fixed text-sm text-left">
         <thead className="bg-gray-100">
-          {/* 상단 그룹 헤더 + rowspan */}
           {headerRows.map((row, ri) => (
             <tr key={ri}>
               {row.map((col, ci) => {
@@ -120,13 +116,14 @@ export default function Table({
                 const props = {};
                 if (col.rowspan) props.rowSpan = col.rowspan;
                 if (col.colspan) props.colSpan = col.colspan;
+                if (col.width) props.style = { width: col.width };
                 return (
                   <th
                     key={ci}
                     {...props}
                     className={`px-4 py-2 font-bold border-b text-center ${
                       col.sort ? 'cursor-pointer select-none' : ''
-                    }`}
+                    } ${col.className || ''}`}
                     onClick={() => col.sort && handleSort(col.key)}
                   >
                     <div className="flex items-center gap-1 justify-center">
@@ -139,28 +136,36 @@ export default function Table({
             </tr>
           ))}
         </thead>
-
-        {/* body */}
         <tbody>
-          {mergedRows.map((row, i) => (
-            <tr key={i} className="hover:bg-gray-50">
-              {flatColumns.map(col => {
-                const rowspan = row._rowspan[col.key] ?? 1;
-                const colspan = row._colspan[col.key] ?? 1;
-                if (rowspan === 0 || colspan === 0) return null;
-                return (
-                  <td
-                    key={col.key}
-                    rowSpan={rowspan}
-                    colSpan={colspan}
-                    className="px-4 py-2 border-b align-top text-center"
-                  >
-                    {row[col.key]}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
+          {mergedRows.map((row, i) => {
+            // row.className이 함수면 호출, 아니면 문자열 사용
+            const rowClass =
+              typeof row.className === 'function'
+                ? row.className(row)
+                : row.className || '';
+            return (
+              <tr key={i} className={`hover:bg-gray-50 ${rowClass}`}>
+                {flatColumns.map(col => {
+                  const rowspan = row._rowspan[col.key] ?? 1;
+                  const colspan = row._colspan[col.key] ?? 1;
+                  if (rowspan === 0 || colspan === 0) return null;
+                  return (
+                    <td
+                      key={col.key}
+                      rowSpan={rowspan}
+                      colSpan={colspan}
+                      style={col.width ? { width: col.width } : undefined}
+                      className={`px-4 py-2 border-b align-top text-center ${className} ${
+                        col.className || ''
+                      }`}
+                    >
+                      {row[col.key]}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
