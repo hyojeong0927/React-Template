@@ -37,6 +37,7 @@ import ErrorPage from './pages/ErrorPage';
 
 // 컴퍼넌트 예제
 import AgreeForm from './pages/example/AgreeFormExample';
+import AgGrid from './pages/example/AgGridExample';
 import BottomSheet from './pages/example/BottomSheetExample';
 import Button from './pages/example/ButtonExample';
 import Chart from './pages/example/ChartExample';
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
         element: <CommonIndex />,
         children: [
           { index: true, element: <AgreeForm /> },
+          { path: 'aggrid', element: <AgGrid /> },
           { path: 'bottomsheet', element: <BottomSheet /> },
           { path: 'chart', element: <Chart /> },
           { path: 'checkbox', element: <Checkbox /> },

@@ -43,6 +43,7 @@ function Header() {
       to: '/example',
       children: [
         { id: 'agree', label: 'Agree Form', to: '/example' },
+        { id: 'aggrid', label: 'Ag Grid', to: '/example/aggrid' },
         {
           id: 'bottomsheet',
           label: 'Bottom Sheet',
