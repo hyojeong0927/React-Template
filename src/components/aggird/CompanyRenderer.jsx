@@ -1,7 +1,21 @@
-export default function CompanyRenderer({ value }) {
-  return value ? (
+import React from 'react';
+
+const CompanyRenderer = React.memo(({ value }) => {
+  if (!value) return null;
+
+  let hostname = '';
+  try {
+    hostname = new URL(value).hostname;
+  } catch {
+    hostname = value;
+  }
+
+  return (
     <a href={value} target="_blank" rel="noopener noreferrer">
-      {new URL(value).hostname}
+      {hostname}
     </a>
-  ) : null;
-}
+  );
+});
+
+CompanyRenderer.displayName = 'CompanyRenderer';
+export default CompanyRenderer;

@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo, useRef, useState, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import './grid.css';
-
-// 커스텀 렌더러
+import CustomTooltip from '../../components/aggird/CustomTooltip';
 import {
   CompanyRenderer,
   CustomButton,
@@ -17,39 +15,41 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 export default function GridExample() {
   const gridRef = useRef(null);
 
-  // 컬럼 정의 (useMemo)
-  const columnDefs = useMemo(() => [
-    {
-      field: 'athlete',
-      width: 150,
-      cellStyle: params =>
-        params.value === 'Usain Bolt'
-          ? { color: 'red', backgroundColor: 'green' }
-          : null,
-    },
-    { field: 'company', width: 200, cellRenderer: CompanyRenderer },
-    { field: 'price', width: 180, cellRenderer: PriceRenderer },
-    {
-      headerName: 'Action',
-      field: 'action',
-      width: 200,
-      cellRenderer: CustomButton,
-    },
-    {
-      field: 'gold',
-      width: 100,
-      cellClassRules: {
-        'rag-green-outer': params => params.value === 8,
-        'rag-blue-outer': params => params.value === 3,
-        'rag-red-outer': params => params.value === 4,
+  const columnDefs = useMemo(
+    () => [
+      {
+        field: 'athlete',
+        width: 150,
+        tooltipField: 'athlete',
+        cellStyle: params =>
+          params.value === 'Usain Bolt'
+            ? { color: 'red', backgroundColor: 'green' }
+            : null,
       },
-    },
-    { field: 'silver', width: 100 },
-    { field: 'bronze', width: 100 },
-    { field: 'total', width: 100 },
-  ]);
+      { field: 'company', width: 200, cellRenderer: CompanyRenderer },
+      { field: 'price', width: 180, cellRenderer: PriceRenderer },
+      {
+        headerName: 'Action',
+        field: 'action',
+        width: 300,
+        cellRenderer: CustomButton,
+      },
+      {
+        field: 'gold',
+        width: 100,
+        cellClassRules: {
+          'rag-green-outer': params => params.value === 8,
+          'rag-blue-outer': params => params.value === 3,
+          'rag-red-outer': params => params.value === 4,
+        },
+      },
+      { field: 'silver', width: 100 },
+      { field: 'bronze', width: 100 },
+      { field: 'total', width: 100 },
+    ],
+    [],
+  );
 
-  // 내부 데이터 (useMemo)
   const rowData = useMemo(
     () => [
       {
@@ -83,11 +83,9 @@ export default function GridExample() {
     [],
   );
 
-  // 그리드 스타일 상태
   const [style, setStyle] = useState({ width: '100%', height: '100%' });
-
-  // Quartz 테마 스타일 로드 후 렌더링 (경고 #9 방지)
   const [ready, setReady] = useState(false);
+
   useEffect(() => {
     const t = setTimeout(() => setReady(true), 50);
     return () => clearTimeout(t);
@@ -95,7 +93,6 @@ export default function GridExample() {
 
   if (!ready) return <div style={{ padding: 20 }}>Loading...</div>;
 
-  // 버튼 핸들러
   const setWidthAndHeight = (width, height) => setStyle({ width, height });
 
   return (
@@ -108,9 +105,10 @@ export default function GridExample() {
           Fill 60%
         </button>
         <button onClick={() => setWidthAndHeight('400px', '400px')}>
-          Exactly 400 x 400
+          400 x 400
         </button>
       </div>
+
       <div className="grid-wrapper">
         <div style={style} className="ag-theme-alpine">
           <AgGridReact
@@ -118,7 +116,20 @@ export default function GridExample() {
             rowData={rowData}
             columnDefs={columnDefs}
             pagination
-            theme="legacy"
+            animateRows
+            tooltipShowDelay={300}
+            tooltipHideDelay={3000}
+            tooltipMouseTrack={true}
+            popupParent={document.body}
+            components={{
+              customTooltip: CustomTooltip,
+            }}
+            defaultColDef={{
+              tooltipComponent: 'customTooltip',
+              sortable: true,
+              resizable: true,
+            }}
+            theme="legacy" // Quartz 없이 legacy 사용
           />
         </div>
       </div>

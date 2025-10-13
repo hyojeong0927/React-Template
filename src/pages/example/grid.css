@@ -42,3 +42,32 @@ button {
 .rag-red-outer {
   background-color: #f8d7da;
 }
+/* ✅ 행 hover 효과 */
+.ag-theme-alpine .ag-row-hover {
+  background-color: rgba(0, 123, 255, 0.08) !important;
+  transition: background-color 0.25s ease;
+}
+
+/* ✅ Tooltip 스타일 */
+.ag-tooltip {
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  animation: fadeIn 0.2s ease-in-out;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Tooltip 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,11 @@
+.custom-tooltip {
+  background-color: rgba(50, 50, 50, 0.9);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  pointer-events: none; /* 마우스 이벤트 무시 */
+  max-width: 250px;
+  word-wrap: break-word;
+}
