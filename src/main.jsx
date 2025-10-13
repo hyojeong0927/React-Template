@@ -53,6 +53,7 @@ import Popup from './pages/example/PopupExample';
 import PopupBottomSheet from './pages/example/PopupBottomSheetExample';
 import SelectBox from './pages/example/SelectboxExample';
 import SearchForm from './pages/example/SearchFormExample';
+import Step from './pages/example/StepExample';
 import Tabs from './pages/example/TabsExample';
 import Table from './pages/example/TableExample';
 
@@ -89,21 +90,22 @@ const router = createBrowserRouter([
           { index: true, element: <AgreeForm /> },
           { path: 'aggrid', element: <AgGrid /> },
           { path: 'bottomsheet', element: <BottomSheet /> },
+          { path: 'button', element: <Button /> },
           { path: 'chart', element: <Chart /> },
           { path: 'checkbox', element: <Checkbox /> },
           { path: 'faq', element: <FAQ /> },
-          { path: 'list', element: <List /> },
-          { path: 'selectbox', element: <SelectBox /> },
-          { path: 'title', element: <HeadTitle /> },
           { path: 'floatingbar', element: <FloatingBar /> },
+          { path: 'form', element: <Form /> },
+          { path: 'info', element: <Info /> },
+          { path: 'list', element: <List /> },
           { path: 'popup', element: <Popup /> },
           { path: 'popupbottomsheet', element: <PopupBottomSheet /> },
           { path: 'search', element: <SearchForm /> },
-          { path: 'form', element: <Form /> },
-          { path: 'button', element: <Button /> },
-          { path: 'info', element: <Info /> },
+          { path: 'selectbox', element: <SelectBox /> },
+          { path: 'step', element: <Step /> },
           { path: 'tabs', element: <Tabs /> },
           { path: 'table', element: <Table /> },
+          { path: 'title', element: <HeadTitle /> },
         ],
       },
       {
