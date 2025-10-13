@@ -1,5 +1,5 @@
-@import 'ag-grid-community/styles/ag-grid.css'; /* 기본 스타일 */
-@import 'ag-grid-community/styles/ag-theme-alpine.css'; /* Legacy 테마 포함 */
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 .example-wrapper {
   height: 100vh;
@@ -17,7 +17,28 @@
   height: 100%;
 }
 
+.imgSpan {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.priceIcon {
+  width: 16px;
+  height: 16px;
+}
+
 button {
   margin-right: 5px;
   padding: 5px 10px;
+}
+
+.rag-green-outer {
+  background-color: #d4edda;
+}
+.rag-blue-outer {
+  background-color: #cce5ff;
+}
+.rag-red-outer {
+  background-color: #f8d7da;
 }

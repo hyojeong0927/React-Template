@@ -88,7 +88,6 @@ function Header() {
       children: [
         { id: 'scrollpage', label: 'Scroll Page', to: '/etc' },
         { id: 'page1', label: 'Page Move', to: '/etc/page1' },
-        { id: 'stickypage', label: 'Sticky Page', to: '/etc/stickypage' },
       ],
     },
   ];
