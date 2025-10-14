@@ -6,7 +6,7 @@ export default function Step() {
       <h3 className="font-semibold mb-2 text-gray-700 text-center">
         Step 예시
       </h3>
-      <div style={{ padding: '50px' }}>
+      <div className="flex justify-center gap-20 py-10">
         <StepIndicator
           totalSteps={5}
           currentStep={3}

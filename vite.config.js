@@ -11,4 +11,14 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  css: {
+    modules: {
+      localsConvention: 'camelCase', // JS에서 camelCase로 접근 가능
+    },
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "src/styles/_variables.scss";`,
+      },
+    },
+  },
 });

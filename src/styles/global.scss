@@ -1,0 +1,23 @@
+@import './variables';
+@import './mixins';
+@import './reset';
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Roboto', sans-serif;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.card {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 20px;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}

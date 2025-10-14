@@ -1,0 +1,10 @@
+.custom-btn {
+  border-radius: 12px !important; // MUI override 시 !important 필요할 수도 있음
+  text-transform: none;
+  font-weight: bold;
+  padding: 8px 24px;
+
+  &:hover {
+    background-color: darken(#1976d2, 10%);
+  }
+}

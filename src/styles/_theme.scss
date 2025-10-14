@@ -1,0 +1,29 @@
+/* 공통 변수: light/dark 테마 둘 다 사용 */
+:root {
+  --transition-speed: 0.3s;
+}
+
+/* 🌞 Light Theme */
+[data-theme='light'] {
+  --color-primary: #1976d2;
+  --color-secondary: #9c27b0;
+  --color-bg: #ffffff;
+  --color-text: #222;
+}
+
+/* 🌙 Dark Theme */
+[data-theme='dark'] {
+  --color-primary: #90caf9;
+  --color-secondary: #ce93d8;
+  --color-bg: #121212;
+  --color-text: #f5f5f5;
+}
+
+/* 전역 스타일 예시 */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition:
+    background-color var(--transition-speed),
+    color var(--transition-speed);
+}
