@@ -1,10 +1,16 @@
 import { useState } from 'react';
-import { Checkbox, CheckboxGroup, Radio } from '../../components/checkbox';
+import {
+  Checkbox,
+  CheckboxGroup,
+  Radio,
+  Switch,
+} from '../../components/checkbox';
 
 export default function CheckboxDemo() {
   const [selected, setSelected] = useState([]);
   const [selected1, setSelected1] = useState([]);
   const [selected2, setSelected2] = useState([]);
+  const [active, setActive] = useState(false);
 
   const sampleOptions = [
     { value: 'a', label: 'Apple', ariaLabel: '사과', disabled: false },
@@ -72,6 +78,12 @@ export default function CheckboxDemo() {
       <p className="mt-3 text-gray-700">
         선택된 값: <span className="font-semibold">{selected}</span>
       </p>
+      <hr className="my-10" />
+      <h2 className="text-lg font-bold mb-3 text-center">Switch</h2>
+
+      <Switch checked={active} onChange={setActive} />
+      <p>현재 상태: {active ? 'ON' : 'OFF'}</p>
+      <Switch checked disabled />
     </>
   );
 }
