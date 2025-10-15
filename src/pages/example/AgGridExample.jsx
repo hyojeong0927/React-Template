@@ -1,24 +1,186 @@
 import { useMemo, useRef, useState, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
-import './grid.css';
+import {
+  AllCommunityModule,
+  CheckboxEditorModule,
+  ModuleRegistry,
+  PaginationModule,
+} from 'ag-grid-community';
 import CustomTooltip from '../../components/aggird/CustomTooltip';
 import {
   CompanyRenderer,
   CustomButton,
   PriceRenderer,
+  DatePickerEditor,
+  CustomPagination,
+  PageSizeSelector,
 } from '../../components/aggird';
+import './grid.css';
 
-// AG Grid 모듈 등록
-ModuleRegistry.registerModules([AllCommunityModule]);
+ModuleRegistry.registerModules([
+  AllCommunityModule,
+  CheckboxEditorModule,
+  PaginationModule,
+]);
+
+const generateRowData = () => [
+  {
+    athlete: 'Michael Phelps',
+    company: 'https://www.usa-swimming.org',
+    price: 300_000_000_000,
+    country: 'USA',
+    joinDate: '2008-08-08',
+    gold: 8,
+    silver: 0,
+    bronze: 0,
+    total: 8,
+    boolean: true,
+  },
+  {
+    athlete: 'Usain Bolt',
+    company: 'https://www.jamaicaathletics.org',
+    price: 15_000_000_000,
+    country: 'Jamaica',
+    joinDate: '2012-07-27',
+    gold: 3,
+    silver: 0,
+    bronze: 0,
+    total: 3,
+    boolean: null,
+  },
+  {
+    athlete: 'Simone Biles',
+    company: '',
+    price: 8_000_000_000,
+    country: 'USA',
+    joinDate: '2012-07-27',
+    gold: 4,
+    silver: 0,
+    bronze: 1,
+    total: 5,
+    boolean: '',
+  },
+  {
+    athlete: 'Michael Phelps',
+    company: 'https://www.usa-swimming.org',
+    price: 300_000_000_000,
+    country: 'USA',
+    joinDate: '2008-08-08',
+    gold: 8,
+    silver: 0,
+    bronze: 0,
+    total: 8,
+    boolean: true,
+  },
+  {
+    athlete: 'Usain Bolt',
+    company: 'https://www.jamaicaathletics.org',
+    price: 15_000_000_000,
+    country: 'Jamaica',
+    joinDate: '2012-07-27',
+    gold: 3,
+    silver: 0,
+    bronze: 0,
+    total: 3,
+    boolean: null,
+  },
+  {
+    athlete: 'Simone Biles',
+    company: '',
+    price: 8_000_000_000,
+    country: 'USA',
+    joinDate: '2012-07-27',
+    gold: 4,
+    silver: 0,
+    bronze: 1,
+    total: 5,
+    boolean: '',
+  },
+  {
+    athlete: 'Michael Phelps',
+    company: 'https://www.usa-swimming.org',
+    price: 300_000_000_000,
+    country: 'USA',
+    joinDate: '2008-08-08',
+    gold: 8,
+    silver: 0,
+    bronze: 0,
+    total: 8,
+    boolean: true,
+  },
+  {
+    athlete: 'Usain Bolt',
+    company: 'https://www.jamaicaathletics.org',
+    price: 15_000_000_000,
+    country: 'Jamaica',
+    joinDate: '2012-07-27',
+    gold: 3,
+    silver: 0,
+    bronze: 0,
+    total: 3,
+    boolean: null,
+  },
+  {
+    athlete: 'Simone Biles',
+    company: '',
+    price: 8_000_000_000,
+    country: 'USA',
+    joinDate: '2012-07-27',
+    gold: 4,
+    silver: 0,
+    bronze: 1,
+    total: 5,
+    boolean: '',
+  },
+  {
+    athlete: 'Michael Phelps',
+    company: 'https://www.usa-swimming.org',
+    price: 300_000_000_000,
+    country: 'USA',
+    joinDate: '2008-08-08',
+    gold: 8,
+    silver: 0,
+    bronze: 0,
+    total: 8,
+    boolean: true,
+  },
+  {
+    athlete: 'Usain Bolt',
+    company: 'https://www.jamaicaathletics.org',
+    price: 15_000_000_000,
+    country: 'Jamaica',
+    joinDate: '2012-07-27',
+    gold: 3,
+    silver: 0,
+    bronze: 0,
+    total: 3,
+    boolean: null,
+  },
+  {
+    athlete: 'Simone Biles',
+    company: '',
+    price: 8_000_000_000,
+    country: 'USA',
+    joinDate: '2012-07-27',
+    gold: 4,
+    silver: 0,
+    bronze: 1,
+    total: 5,
+    boolean: '',
+  },
+];
 
 export default function GridExample() {
   const gridRef = useRef(null);
+  const [rowData] = useState(generateRowData());
+  const [pageSize, setPageSize] = useState(2);
 
   const columnDefs = useMemo(
     () => [
       {
+        headerName: 'Athlete',
         field: 'athlete',
+        editable: true,
         width: 150,
         tooltipField: 'athlete',
         cellStyle: params =>
@@ -26,8 +188,30 @@ export default function GridExample() {
             ? { color: 'red', backgroundColor: 'green' }
             : null,
       },
-      { field: 'company', width: 200, cellRenderer: CompanyRenderer },
+      {
+        field: 'company',
+        editable: true,
+        minWidth: '200',
+        cellRenderer: CompanyRenderer,
+      },
       { field: 'price', width: 180, cellRenderer: PriceRenderer },
+      {
+        headerName: 'Selectbox',
+        field: 'country',
+        width: 100,
+        editable: true,
+        cellEditor: 'agSelectCellEditor',
+        cellEditorParams: {
+          values: ['USA', 'Jamaica', 'Korea', 'Japan', 'UK'],
+        },
+      },
+      {
+        headerName: 'Datepicker',
+        field: 'joinDate',
+        width: 160,
+        editable: true,
+        cellEditor: 'datePickerEditor',
+      },
       {
         headerName: 'Action',
         field: 'action',
@@ -36,6 +220,7 @@ export default function GridExample() {
       },
       {
         field: 'gold',
+        editable: true,
         width: 100,
         cellClassRules: {
           'rag-green-outer': params => params.value === 8,
@@ -43,47 +228,51 @@ export default function GridExample() {
           'rag-red-outer': params => params.value === 4,
         },
       },
-      { field: 'silver', width: 100 },
-      { field: 'bronze', width: 100 },
-      { field: 'total', width: 100 },
+      {
+        field: 'silver',
+        editable: true,
+        cellEditor: 'agNumberCellEditor',
+        cellEditorParams: {
+          min: 0,
+          max: 100,
+        },
+        width: 100,
+      },
+      {
+        field: 'bronze',
+        editable: true,
+        cellEditor: 'agNumberCellEditor',
+        cellEditorParams: {
+          min: 0,
+          max: 100,
+        },
+        width: 100,
+      },
+      {
+        field: 'total',
+        editable: true,
+        cellEditor: 'agNumberCellEditor',
+        cellEditorParams: {
+          min: 0,
+          max: 100,
+        },
+        width: 100,
+      },
+      {
+        headerName: 'Checkbox Cell Editor',
+        field: 'boolean',
+        editable: true,
+        cellEditor: 'agCheckboxCellEditor',
+      },
     ],
     [],
   );
-
-  const rowData = useMemo(
-    () => [
-      {
-        athlete: 'Michael Phelps',
-        company: 'https://www.usa-swimming.org',
-        price: 300_000_000_000,
-        gold: 8,
-        silver: 0,
-        bronze: 0,
-        total: 8,
-      },
-      {
-        athlete: 'Usain Bolt',
-        company: 'https://www.jamaicaathletics.org',
-        price: 15_000_000_000,
-        gold: 3,
-        silver: 0,
-        bronze: 0,
-        total: 3,
-      },
-      {
-        athlete: 'Simone Biles',
-        company: '',
-        price: 8_000_000_000,
-        gold: 4,
-        silver: 0,
-        bronze: 1,
-        total: 5,
-      },
-    ],
-    [],
-  );
-
-  const [style, setStyle] = useState({ width: '100%', height: '100%' });
+  const [gridApi, setGridApi] = useState(null);
+  const onGridReady = params => {
+    console.log('Grid ready', params.api);
+    setGridApi(params.api);
+  };
+  const [style, setStyle] = useState({ width: '100%', height: '50%' });
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -98,7 +287,7 @@ export default function GridExample() {
   return (
     <div className="example-wrapper">
       <div style={{ marginBottom: '5px' }}>
-        <button onClick={() => setWidthAndHeight('100%', '100%')}>
+        <button onClick={() => setWidthAndHeight('100%', '50%')}>
           Fill 100%
         </button>
         <button onClick={() => setWidthAndHeight('60%', '60%')}>
@@ -110,27 +299,44 @@ export default function GridExample() {
       </div>
 
       <div className="grid-wrapper">
+        <PageSizeSelector
+          pageSize={pageSize}
+          setPageSize={setPageSize}
+          gridRef={gridRef}
+        />
         <div style={style} className="ag-theme-alpine">
           <AgGridReact
             ref={gridRef}
             rowData={rowData}
             columnDefs={columnDefs}
-            pagination
             animateRows
             tooltipShowDelay={300}
             tooltipHideDelay={3000}
             tooltipMouseTrack={true}
+            suppressPaginationPanel={true}
+            pagination={true}
+            paginationPageSize={pageSize}
+            onGridReady={onGridReady}
             popupParent={document.body}
             components={{
               customTooltip: CustomTooltip,
+              datePickerEditor: DatePickerEditor,
             }}
             defaultColDef={{
               tooltipComponent: 'customTooltip',
               sortable: true,
               resizable: true,
             }}
-            theme="legacy" // Quartz 없이 legacy 사용
+            singleClickEdit={true}
+            rowSelection={{
+              mode: 'multiRow',
+              checkboxes: true,
+              enableClickSelection: false,
+            }}
+            theme="legacy"
           />
+
+          {gridApi && <CustomPagination gridApi={gridApi} />}
         </div>
       </div>
     </div>
