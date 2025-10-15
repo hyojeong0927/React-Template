@@ -6,6 +6,7 @@ import {
   ModuleRegistry,
   PaginationModule,
 } from 'ag-grid-community';
+// Grid Renderer, Editor Components
 import {
   CompanyRenderer,
   CustomButton,
@@ -15,9 +16,11 @@ import {
   PageSizeSelector,
   CustomTooltip,
 } from '@/components/aggird';
+// Data
 import { rowData } from '@/data/rowData';
+// Style
 import './grid.css';
-
+// Grid module
 ModuleRegistry.registerModules([
   AllCommunityModule,
   CheckboxEditorModule,
