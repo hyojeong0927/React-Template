@@ -6,7 +6,6 @@ import {
   ModuleRegistry,
   PaginationModule,
 } from 'ag-grid-community';
-import CustomTooltip from '@/components/aggird/CustomTooltip';
 import {
   CompanyRenderer,
   CustomButton,
@@ -14,6 +13,7 @@ import {
   DatePickerEditor,
   CustomPagination,
   PageSizeSelector,
+  CustomTooltip,
 } from '@/components/aggird';
 import { rowData } from '@/data/rowData';
 import './grid.css';
@@ -25,9 +25,16 @@ ModuleRegistry.registerModules([
 ]);
 
 export default function GridExample() {
+  //  Ref
   const gridRef = useRef(null);
-  const [pageSize, setPageSize] = useState(2);
 
+  // 상태 정의
+  const [gridApi, setGridApi] = useState(null);
+  const [pageSize, setPageSize] = useState(2);
+  const [style, setStyle] = useState({ width: '100%', height: '50%' });
+  const [ready, setReady] = useState(false);
+
+  // 컬럼 정의
   const columnDefs = useMemo(
     () => [
       {
@@ -120,22 +127,22 @@ export default function GridExample() {
     ],
     [],
   );
-  const [gridApi, setGridApi] = useState(null);
+
+  // 이벤트 핸들러
   const onGridReady = params => {
     console.log('Grid ready', params.api);
     setGridApi(params.api);
   };
-  const [style, setStyle] = useState({ width: '100%', height: '50%' });
-  const [ready, setReady] = useState(false);
+  const setWidthAndHeight = (width, height) => setStyle({ width, height });
 
+  // useEffect
   useEffect(() => {
     const t = setTimeout(() => setReady(true), 50);
     return () => clearTimeout(t);
   }, []);
 
+  // loading
   if (!ready) return <div style={{ padding: 20 }}>Loading...</div>;
-
-  const setWidthAndHeight = (width, height) => setStyle({ width, height });
 
   return (
     <div className="example-wrapper">
@@ -152,12 +159,14 @@ export default function GridExample() {
       </div>
 
       <div className="grid-wrapper">
+        {/* Page View */}
         <PageSizeSelector
           pageSize={pageSize}
           setPageSize={setPageSize}
           gridRef={gridRef}
         />
         <div style={style} className="ag-theme-alpine">
+          {/* Grid */}
           <AgGridReact
             ref={gridRef}
             rowData={rowData}
@@ -188,7 +197,7 @@ export default function GridExample() {
             }}
             theme="legacy"
           />
-
+          {/* Pagination */}
           {gridApi && <CustomPagination gridApi={gridApi} />}
         </div>
       </div>
