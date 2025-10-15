@@ -26,7 +26,15 @@ export default function CustomPagination({ gridApi }) {
   const goToPage = page => {
     gridApi.paginationGoToPage(page - 1);
   };
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pageLimit = 10;
+
+  let startPage = Math.floor((currentPage - 1) / pageLimit) * pageLimit + 1;
+  let endPage = Math.min(startPage + pageLimit - 1, totalPages);
+
+  const pageNumbers = [];
+  for (let i = startPage; i <= endPage; i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div
