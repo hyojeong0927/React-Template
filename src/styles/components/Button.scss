@@ -1,5 +1,9 @@
+@use '../abstracts/functions' as *;
+@use '../abstracts/mui-theme' as *;
+@use '../abstracts/mui-theme' as *;
+
 .custom-btn {
-  border-radius: 12px !important; // MUI override 시 !important 필요할 수도 있음
+  border-radius: rem(12px) !important;
   text-transform: none;
   font-weight: bold;
   padding: 8px 24px;
@@ -7,4 +11,12 @@
   &:hover {
     background-color: darken(#1976d2, 10%);
   }
+}
+.my-button {
+  background-color: $primary-main;
+  border-radius: spacing(0.5);
+
+  @include responsive-font(18px);
+  @include responsive-space(padding, 24px);
+  @include responsive-space(margin, 16px, top);
 }

@@ -1,6 +1,7 @@
-@import './variables';
-@import './mixins';
-@import './reset';
+@import './abstracts/variables';
+@import './abstracts/mixins';
+@import './base/reset';
+@import './base/typography';
 
 body {
   background-color: var(--color-bg);

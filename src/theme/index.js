@@ -1,16 +1,25 @@
+// theme.js
 import { createTheme } from '@mui/material/styles';
-import { lightPalette, darkPalette } from './palette';
+import { lightPalette, darkPalette, typography } from './palette';
 
-export const getTheme = (mode = 'light') => {
-  const palette = mode === 'light' ? lightPalette : darkPalette;
-
-  return createTheme({
+export const getTheme = (mode = 'light') =>
+  createTheme({
     palette: {
       mode,
-      primary: { main: palette.primary },
-      secondary: { main: palette.secondary },
-      background: { default: palette.background },
-      text: { primary: palette.text },
+      ...(mode === 'light' ? lightPalette : darkPalette),
+    },
+    typography,
+    shape: {
+      borderRadius: 12,
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+            borderRadius: 8,
+          },
+        },
+      },
     },
   });
-};

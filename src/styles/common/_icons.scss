@@ -1,0 +1,113 @@
+@use 'sass:map';
+@use 'sass:list';
+
+/* Icons
+========================================================================== */
+$icons: (
+  // header
+  h1-logo: (64px, 50px, 'svg'),
+  h1-logo-txt: (157px, 62px, 'svg'),
+  // header util
+  clipboard: (20px, 20px, 'svg'),
+  calendar-check: (20px, 20px, 'svg'),
+  file-check: (20px, 20px, 'svg'),
+  user-circle: (20px, 20px, 'svg'),
+  // lnb
+  arrow-expansion: (32px, 32px, 'svg'),
+  arrow-close: (32px, 32px, 'svg'),
+  // components
+  calendar: (20px, 20px, 'svg'),
+  calendar-on: (20px, 20px, 'svg'),
+  arrow-down: (20px, 20px, 'svg'),
+  search: (20px, 20px, 'svg'),
+  search-on: (20px, 20px, 'svg'),
+  checked: (12px, 12px, 'svg'),
+  checked-disabled: (12px, 12px, 'svg'),
+  radio-checked: (20px, 20px, 'svg'),
+  close: (32px, 32px, 'svg'),
+  close-wh: (32px, 32px, 'svg'),
+  empty: (40px, 40px, 'svg'),
+  // step
+  step-doc: (48px, 48px, 'svg'),
+  step-reject: (48px, 48px, 'svg'),
+  step-check: (48px, 48px, 'svg'),
+  // pagination arrow
+  arrow-left: (20px, 20px, 'svg'),
+  arrow-left-off: (20px, 20px, 'svg'),
+  arrow-right: (20px, 20px, 'svg'),
+  arrow-right-off: (20px, 20px, 'svg'),
+  arrow-first: (20px, 20px, 'svg'),
+  arrow-first-off: (20px, 20px, 'svg'),
+  arrow-last: (20px, 20px, 'svg'),
+  arrow-last-off: (20px, 20px, 'svg'),
+  // tree view
+  tree-root: (20px, 20px, 'svg'),
+  tree-folder-open: (20px, 20px, 'svg'),
+  tree-folder-close: (20px, 20px, 'svg'),
+  tree-doc: (20px, 20px, 'svg'),
+  tree-minus: (16px, 16px, 'svg'),
+  tree-plus: (16px, 16px, 'svg'),
+  // grid
+  del-trash: (24px, 24px, 'svg'),
+  // login
+  login-user: (80px, 80px, 'svg'),
+  login-logo: (48px, 38px, 'svg'),
+  login-brand-name: (337px, 24px, 'svg'),
+  login-id: (24px, 24px, 'svg'),
+  login-pw: (24px, 24px, 'svg'),
+  // error
+  error-500: (160px, 160px, 'svg'),
+  error-400: (160px, 160px, 'svg'),
+  // loading
+  loading: (150px, 150px, 'gif'),
+  // dashboard
+  tit-bullet-1: (32px, 32px, 'svg'),
+  tit-bullet-2: (32px, 32px, 'svg'),
+  tit-bullet-3: (32px, 32px, 'svg'),
+  tit-bullet-4: (32px, 32px, 'svg'),
+  more: (20px, 20px, 'svg'),
+  list-bullet: (6px, 6px, 'svg'),
+  alarm: (24px, 24px, 'svg')
+);
+
+// icon
+@mixin icon-base {
+  display: inline-block;
+  padding: 0;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: content-box;
+}
+.icon {
+  @include icon-base;
+}
+// icon 경로
+@function icon-path($name, $ext) {
+  @return '#{$img-root}/images/#{$ext}/#{$name}.#{$ext}';
+}
+
+@mixin icons($name) {
+  @include icon-base;
+
+  @if map.has-key($icons, $name) {
+    $props: map.get($icons, $name);
+
+    $width: list.nth($props, 1);
+    $height: list.nth($props, 2);
+    $ext: list.nth($props, 3);
+
+    width: rem($width);
+    height: rem($height);
+    // background-size: $width $height;
+    background-image: url(icon-path($name, $ext));
+  } @else {
+    @error "icons() mixin: '#{$name}' 아이콘이 $icons에 없습니다.";
+  }
+}
+
+@each $name, $props in $icons {
+  .icon.#{$name} {
+    @include icons($name);
+  }
+}

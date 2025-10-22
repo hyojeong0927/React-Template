@@ -1,5 +1,5 @@
 // import Button from '@mui/material/Button';
-// import './ButtonCustom.scss';
+// import '@/styles/components/button.scss';
 
 export default function Button({
   type = 'button',

@@ -1,41 +1,38 @@
 import { useMemo, useRef, useState, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import {
-  AllCommunityModule,
-  CheckboxEditorModule,
-  ModuleRegistry,
-  PaginationModule,
-} from 'ag-grid-community';
+
 // Grid Renderer, Editor Components
 import {
   CompanyRenderer,
   CustomButton,
-  PriceRenderer,
-  DatePickerEditor,
   CustomPagination,
-  PageSizeSelector,
   CustomTooltip,
+  DatePickerEditor,
+  PageSizeSelector,
+  PriceRenderer,
 } from '@/components/aggird';
+import '@/components/aggird/gridModules';
+import { getDefaultColDef } from '@/utils/gridDefaultColDef';
+
 // Data
 import { rowData } from '@/data/rowData';
+
 // Style
 import './grid.css';
-// Grid module
-ModuleRegistry.registerModules([
-  AllCommunityModule,
-  CheckboxEditorModule,
-  PaginationModule,
-]);
+
+// rowspan 병합 대상 필드
+const mergeFields = ['athlete', 'company'];
 
 export default function GridExample() {
-  //  Ref
-  const gridRef = useRef(null);
-
   // 상태 정의
+  const gridRef = useRef(null);
   const [gridApi, setGridApi] = useState(null);
   const [pageSize, setPageSize] = useState(2);
   const [style, setStyle] = useState({ width: '100%', height: '50%' });
   const [ready, setReady] = useState(false);
+
+  /** 공통 defaultColDef */
+  const defaultColDef = useMemo(() => getDefaultColDef(mergeFields), []);
 
   // 컬럼 정의
   const columnDefs = useMemo(
@@ -51,13 +48,15 @@ export default function GridExample() {
             ? { color: 'red', backgroundColor: 'green' }
             : null,
       },
+
       {
-        field: 'company',
-        editable: true,
+        headerName: 'Column Group',
         minWidth: '200',
-        cellRenderer: CompanyRenderer,
+        children: [
+          { field: 'company', editable: true, cellRenderer: CompanyRenderer },
+          { field: 'price', width: 180, cellRenderer: PriceRenderer },
+        ],
       },
-      { field: 'price', width: 180, cellRenderer: PriceRenderer },
       {
         headerName: 'Selectbox',
         field: 'country',
@@ -187,17 +186,14 @@ export default function GridExample() {
               customTooltip: CustomTooltip,
               datePickerEditor: DatePickerEditor,
             }}
-            defaultColDef={{
-              tooltipComponent: 'customTooltip',
-              sortable: true,
-              resizable: true,
-            }}
+            defaultColDef={defaultColDef}
             singleClickEdit={true}
             rowSelection={{
               mode: 'multiRow',
               checkboxes: true,
               enableClickSelection: false,
             }}
+            suppressRowTransform={true}
             theme="legacy"
           />
           {/* Pagination */}

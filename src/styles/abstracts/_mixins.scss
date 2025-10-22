@@ -1,0 +1,341 @@
+@use 'sass:math';
+@use './functions' as *;
+
+/* Mixin
+========================================================================== */
+
+// 반응형 폰트 사이즈 (디자인 기준 width: 1920px)
+@mixin responsive-font($px-size, $min-vw: 360px, $max-vw: 1920px) {
+  // rem 기준 (기본)
+  font-size: rem($px-size);
+
+  // 반응형 구간 설정
+  @media (max-width: $max-vw) {
+    // 화면이 줄어들면 vw 기반으로 줄어듦
+    font-size: vw($px-size);
+  }
+
+  // 너무 작아질 경우 최소 보장
+  @media (max-width: $min-vw) {
+    font-size: rem(math.max($px-size * 0.75, 12px));
+  }
+}
+
+// ⚙️ 반응형 여백 (padding, margin 등)
+@mixin responsive-space($property, $px-size, $direction: all) {
+  $value-rem: rem($px-size);
+  $value-vw: vw($px-size);
+
+  @if $direction == all {
+    #{$property}: $value-rem;
+
+    @media (max-width: 1920px) {
+      #{$property}: $value-vw;
+    }
+  } @else {
+    #{$property}-#{$direction}: $value-rem;
+
+    @media (max-width: 1920px) {
+      #{$property}-#{$direction}: $value-vw;
+    }
+  }
+}
+
+// flex
+@mixin flex(
+  $flexDirection: true,
+  $justifyContent: 'start',
+  $alignItems: 'start',
+  $gap: 0px
+) {
+  display: flex;
+
+  @if $flexDirection == true {
+    flex-direction: row;
+  } @else {
+    flex-direction: column;
+  }
+  @if $justifyContent == 'start' {
+    justify-content: flex-start;
+  } @else if $justifyContent == 'center' {
+    justify-content: center;
+  } @else if $justifyContent == 'end' {
+    justify-content: flex-end;
+  } @else if $justifyContent == 'around' {
+    justify-content: space-around;
+  } @else if $justifyContent == 'between' {
+    justify-content: space-between;
+  } @else if $justifyContent == 'evenly' {
+    justify-content: space-evenly;
+  } @else {
+    justify-content: flex-start;
+  }
+
+  @if $alignItems == 'start' {
+    align-items: flex-start;
+  } @else if $alignItems == 'center' {
+    align-items: center;
+  } @else if $alignItems == 'end' {
+    align-items: flex-end;
+  } @else if $alignItems == 'baseline' {
+    align-items: baseline;
+  } @else {
+    align-items: normal;
+  }
+  gap: $gap;
+}
+// grid
+@mixin grid(
+  $columns: auto,
+  $rows: auto,
+  $gap: 0,
+  $justifyItems: stretch,
+  $alignItems: stretch
+) {
+  display: grid;
+  grid-template-columns: $columns;
+  grid-template-rows: $rows;
+  gap: $gap;
+  justify-items: $justifyItems;
+  align-items: $alignItems;
+}
+
+// Box
+@mixin box(
+  $type: '.#{$type}',
+  $header: false,
+  $content: true,
+  $footer: false,
+  $round
+) {
+  @if $type == '.box-row-01' {
+    @if $header == true {
+      .box-header {
+        border: none;
+      }
+    } @else {
+      .box-header {
+        display: none;
+      }
+    }
+    @if $content == true {
+      .box-content {
+        border: none;
+      }
+    } @else {
+      .box-content {
+        display: none;
+      }
+    }
+    @if $footer == true {
+      .box-footer {
+        border: none;
+      }
+    } @else {
+      .box-footer {
+        border-radius: $border-radius;
+      }
+    }
+    @if $round == true {
+      border-radius: $round;
+    }
+  }
+  // box default value
+  display: block;
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+}
+// position
+@mixin postion-center($type: absolute) {
+  @if ($type == fixed or $type == absolute) {
+    position: $type;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// :before, :after
+@mixin before(
+  $before: true,
+  $absolute: true,
+  $top: 0px,
+  $right: 0px,
+  $bottom: 0px,
+  $left: 0px
+) {
+  @if $before == true {
+    &::before {
+      content: '';
+
+      @if $absolute == true {
+        position: absolute;
+        top: $top;
+        right: $right;
+        bottom: $bottom;
+        left: $left;
+      } @else {
+        display: inline-block;
+      }
+    }
+  } @else {
+    &::after {
+      content: '';
+
+      @if $absolute == true {
+        position: absolute;
+        top: $top;
+        right: $right;
+        bottom: $bottom;
+        left: $left;
+      } @else {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+// 기본 scrollbar 스타일 공통 정의
+@mixin scrollbar-base($width: 6px, $height: 6px) {
+  ::-webkit-scrollbar {
+    width: $width;
+    height: $height;
+    background: transparent;
+  }
+}
+
+// 트랙 스타일 공통 정의
+@mixin scrollbar-track($color: $gray-001, $opacity: 0.7) {
+  ::-webkit-scrollbar-track {
+    background: $color;
+    border-radius: 10px;
+    opacity: $opacity;
+  }
+}
+
+// 썸 스타일 공통 정의
+@mixin scrollbar-thumb($color: $gray-007) {
+  ::-webkit-scrollbar-thumb {
+    background: $color;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: $color;
+  }
+}
+
+// 스크롤 Y 전용
+@mixin scroll-y {
+  @include scrollbar-base(6px, 6px);
+  @include scrollbar-track($gray-001, 0.7);
+  @include scrollbar-thumb($gray-007);
+}
+
+// 스크롤 X와 Y 공통
+@mixin scroll-x {
+  @include scroll-y;
+}
+
+@mixin body-scroll-y {
+  @include scrollbar-base(8px, 8px);
+  @include scrollbar-track($gray-001, 0.7);
+  @include scrollbar-thumb($gray-011);
+}
+
+@mixin dashboard-scroll-y {
+  @include scrollbar-base(8px, 8px);
+  @include scrollbar-track(transparent, 0);
+  @include scrollbar-thumb($gray-007);
+}
+
+// scroll end
+
+// clearfix
+@mixin clearfix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+}
+
+// ellipsis
+@mixin ellipsis($lines: 1) {
+  @if ($lines==1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+  }
+}
+
+// font
+@mixin font-style($size, $weight, $line-height) {
+  font-size: rem($size);
+  font-weight: $weight;
+  letter-spacing: rem(-0.48px);
+  line-height: $line-height;
+}
+// 웹접근성 숨김 처리
+@mixin hidden {
+  visibility: hidden;
+  width: 1px;
+  height: 1px;
+}
+
+// form style
+@mixin form-label-style {
+  color: $primary;
+  @include font-style($font-size-base, $font-weight-medium, $line-height-base);
+  letter-spacing: rem(-1.5px);
+  word-break: keep-all;
+}
+
+// input style
+@mixin input-style(
+  $padding-y,
+  $padding-x,
+  $width,
+  $height,
+  $font-color,
+  $font-size,
+  $line-height,
+  $font-weight,
+  $letter-spacing,
+  $border-radius,
+  $border-width,
+  $border-style,
+  $border-color,
+  $bg-color,
+  $transition
+) {
+  display: inline-block;
+  padding: rem($padding-y) rem($padding-x);
+  width: $width;
+  height: rem($height);
+  min-height: rem($height);
+  color: $font-color;
+  font-size: rem($font-size);
+  line-height: $line-height;
+  font-weight: $font-weight;
+  letter-spacing: rem($letter-spacing);
+  border-radius: rem($border-radius);
+  border: $border-width $border-style $border-color;
+  background-color: $bg-color;
+  transition: $transition;
+  box-sizing: border-box;
+}
+
+@mixin content-min-width($reduce: 0) {
+  min-width: calc(#{$device-base-width} - #{$sidebar-width} - #{$reduce});
+}
+
+@mixin minwidth {
+  min-width: 0;
+}

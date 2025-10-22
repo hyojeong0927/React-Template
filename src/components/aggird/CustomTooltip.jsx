@@ -1,15 +1,19 @@
-import { forwardRef } from 'react';
 import './tooltip.module.css';
 
-const CustomTooltip = forwardRef(function CustomTooltip(props, ref) {
-  const { value } = props;
+export default function CustomTooltip({ value, colDef }) {
   return (
-    <div ref={ref} className="custom-tooltip">
-      {value || 'No Data'}
+    <div
+      style={{
+        backgroundColor: '#333',
+        color: '#fff',
+        padding: '6px 10px',
+        borderRadius: '4px',
+        fontSize: '12px',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+      }}
+    >
+      <strong>{colDef.headerName}</strong>
+      <div>{value}</div>
     </div>
   );
-});
-
-CustomTooltip.displayName = 'CustomTooltip'; // ESLint용
-
-export default CustomTooltip;
+}

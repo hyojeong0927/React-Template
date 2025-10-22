@@ -1,0 +1,11 @@
+// styles/components/title.scss
+@use '../abstracts/mixins' as *;
+@use '../abstracts/functions' as *;
+@use '../abstracts/mui-theme' as *;
+
+.title {
+  color: $primary-main;
+  font-weight: 600;
+  @include responsive-font(28, 16);
+  @include responsive-spacing(margin-bottom, 40, 16);
+}

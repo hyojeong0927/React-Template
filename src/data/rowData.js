@@ -12,7 +12,7 @@ export const rowData = [
     boolean: true,
   },
   {
-    athlete: 'Usain Bolt',
+    athlete: 'Michael Phelps',
     company: 'https://www.jamaicaathletics.org',
     price: 15_000_000_000,
     country: 'Jamaica',
@@ -36,7 +36,7 @@ export const rowData = [
     boolean: '',
   },
   {
-    athlete: 'Michael Phelps',
+    athlete: 'Michael Phelps2',
     company: 'https://www.usa-swimming.org',
     price: 300_000_000_000,
     country: 'USA',
@@ -72,7 +72,7 @@ export const rowData = [
     boolean: '',
   },
   {
-    athlete: 'Michael Phelps',
+    athlete: 'Michael Phelps3',
     company: 'https://www.usa-swimming.org',
     price: 300_000_000_000,
     country: 'USA',
@@ -108,7 +108,7 @@ export const rowData = [
     boolean: '',
   },
   {
-    athlete: 'Michael Phelps',
+    athlete: 'Michael Phelps4',
     company: 'https://www.usa-swimming.org',
     price: 300_000_000_000,
     country: 'USA',
@@ -144,7 +144,7 @@ export const rowData = [
     boolean: '',
   },
   {
-    athlete: 'Michael Phelps',
+    athlete: 'Michael Phelps5',
     company: 'https://www.usa-swimming.org',
     price: 300_000_000_000,
     country: 'USA',
@@ -180,7 +180,7 @@ export const rowData = [
     boolean: '',
   },
   {
-    athlete: 'Michael Phelps',
+    athlete: 'Michael Phelps6',
     company: 'https://www.usa-swimming.org',
     price: 300_000_000_000,
     country: 'USA',
@@ -216,7 +216,7 @@ export const rowData = [
     boolean: '',
   },
   {
-    athlete: 'Michael Phelps',
+    athlete: 'Michael Phelps7',
     company: 'https://www.usa-swimming.org',
     price: 300_000_000_000,
     country: 'USA',
@@ -252,7 +252,7 @@ export const rowData = [
     boolean: '',
   },
   {
-    athlete: 'Michael Phelps',
+    athlete: 'Michael Phelps8',
     company: 'https://www.usa-swimming.org',
     price: 300_000_000_000,
     country: 'USA',
